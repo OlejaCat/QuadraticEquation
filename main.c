@@ -36,13 +36,29 @@ bool isFinite(double n);
 bool compareTwoDoubles (double a, double b);
 void swap(double* a, double* b);
 void clearScreen();
-int runTests()
-int solveEquation(double a, double b, double c, double* first_root, double* second_root);
-int getCoefficients(double* a, double* b, double* c);
-int printRoots(int number_of_roots, double first_root, double second_root);
-int makeTest(int n, double a, double b, double c, double expected_first_root, double expected_second_root, int expected_number_of_roots);
-int LinearEquation(double b, double c, double* first_root);
-int quadraticEquation(double a, double b, double c, double* first_root, double* second_root);
+int runTests();
+enum NumberOfRoots solveEquation(double a,
+                             double b,
+                             double c,
+                             double* first_root,
+                             double* second_root);
+enum State getCoefficients(double* a, double* b, double* c);
+enum State printRoots(int number_of_roots, double first_root, double second_root);
+enum Tests makeTest(int number_of_tests,
+             double first_coefficient,
+             double second_coefficient,
+             double third_coefficient,
+             double expected_first_root,
+             double expected_second_root,
+             int expected_number_of_roots);
+enum NumberOfRoots LinearEquation(double first_coefficient,
+                             double second_coefficient,
+                             double* first_root);
+enum NumberOfRoots quadraticEquation(double a,
+                             double b,
+                             double c,
+                             double* first_root,
+                             double* second_root);
 
 
 int main() {
@@ -62,7 +78,7 @@ int main() {
             double second_coefficient = 0;
             double third_coefficient = 0;
 
-            int exit_code_input = getCoefficients(&first_coefficient, &second_coefficient, &third_coefficient);
+            enum State exit_code_input = getCoefficients(&first_coefficient, &second_coefficient, &third_coefficient);
 
             if (exit_code_input == State_INPUT_FAILED) {
                 continue;
@@ -70,7 +86,7 @@ int main() {
 
             double first_root = 0;
             double second_root = 0;
-            int number_of_roots = solveEquation(first_coefficient,
+            enum NumberOfRoots number_of_roots = solveEquation(first_coefficient,
                                          second_coefficient,
                                          third_coefficient,
                                          &first_root,
@@ -169,13 +185,9 @@ bool isFinite(double n) {
 //! @return State_WORKING if input correct and State_EQUATION_FAILED if not
 //--------------------------------------------------------------------------
 enum State getCoefficients(double* a, double* b, double* c) {
-    assert (isFinite(a));
-    assert (isFinite(b));
-    assert (isFinite(c));
-
-    assert (a != NULL);
-    assert (b != NULL);
-    assert (c != NULL);
+    assert (isFinite(*a));
+    assert (isFinite(*b));
+    assert (isFinite(*c));
 
     clearScreen();
     printf("Для решения уравнения вида ax^2 + bx + c = 0 введите по порядку все коэффициенты a, b, c\n");
@@ -255,9 +267,9 @@ enum State printRoots(int number_of_roots, double first_root, double second_root
 //!
 //! @note  uses quadratic and linear equations to solve
 //------------------------------------------------------------------------
-enum NumberOfRoots solveEquation(double first_coefficient,
-                             double second_coefficient,
-                             double third_counter,
+enum NumberOfRoots solveEquation(double a,
+                             double b,
+                             double c,
                              double* first_root,
                              double* second_root)
 {
@@ -280,17 +292,17 @@ enum NumberOfRoots solveEquation(double first_coefficient,
 //-----------------------------------------------------------------------
 //!Solves a square equation ax^2 + bx + c = 0 where a != 0
 //!
-//! @param [in]   first_coefficient      Fisrt coefficient
-//! @param [in]   secondd_coefficient    Second coefficient
-//! @param [in]   third                  Third coefficient
-//! @param [out]  first_root             Pointer to the 1st root
-//! @param [out]  second_root            Pointer to the 2nd root
+//! @param [in]   a               Fisrt coefficient
+//! @param [in]   b               Second coefficient
+//! @param [in]   c               Third coefficient
+//! @param [out]  first_root      Pointer to the 1st root
+//! @param [out]  second_root     Pointer to the 2nd root
 //!
 //! @return Number of roots
-//------------------------------------------------------------------------
-enum NumberOfRoots quadraticEquation(double first_coefficient,
-                             double second_coefficient,
-                             double third_counter,
+//-----------------------------------------------------------------------
+enum NumberOfRoots quadraticEquation(double a,
+                             double b,
+                             double c,
                              double* first_root,
                              double* second_root)
 {
@@ -333,14 +345,14 @@ enum NumberOfRoots LinearEquation(double first_coefficient,
                              double second_coefficient,
                              double* first_root)
 {
-    if (compareTwoDoubles(a, 0)) {
-        if (compareTwoDoubles(b, 0)) {
+    if (compareTwoDoubles(first_coefficient, 0)) {
+        if (compareTwoDoubles(second_coefficient, 0)) {
             return NumberOfRoots_INFINITE_ROOTS;
         } else {
             return NumberOfRoots_ZERO_ROOTS;
         }
     } else {
-        *first_root = (-1) * b / a;
+        *first_root = -second_coefficient / first_coefficient;
         return NumberOfRoots_ONE_ROOT;
     }
 }
@@ -370,12 +382,20 @@ enum Tests makeTest(int number_of_tests,
     double first_root = 0;
     double second_root = 0;
 
-    enum NumberOfRoots number_of_roots = solveEquation(a, b, c, &first_root, &second_root);
+    enum NumberOfRoots number_of_roots = solveEquation(first_coefficient,
+                                             second_coefficient,
+                                             third_coefficient,
+                                             &first_root,
+                                             &second_root);
     if (!compareTwoDoubles(first_root, expected_first_root)
         || !compareTwoDoubles(second_root, expected_second_root)
         || !compareTwoDoubles(number_of_roots, expected_number_of_roots))
     {
-        printf("Error on test %d. Input a: %lf, b: %lf, c: %lf\n", n, a, b, c);
+        printf("Error on test %d. Input a: %lf, b: %lf, c: %lf\n",
+               number_of_tests,
+               first_coefficient,
+               second_coefficient,
+               third_coefficient);
         printf("Expected first root: %lf, second root: %lf, number of roots: %d\n",
                expected_first_root,
                expected_second_root,
@@ -386,7 +406,7 @@ enum Tests makeTest(int number_of_tests,
                number_of_roots);
         return Tests_TEST_FAIL;
     }
-    printf("Test %d passed\n", n);
+    printf("Test %d passed\n", number_of_tests);
     return Tests_WORKING;
 }
 
