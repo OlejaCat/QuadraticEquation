@@ -5,9 +5,38 @@
 
 const int INFINITE_ROOTS = -1;
 const double EPS = 0.0000001;
+const char CLEAN_SCREEN[] = "\e[1;1H\e[2J";
+const char WRONG_INPUT_MESSAGE[] = "Некорректный ввод\n";
+
+enum State {
+    WORKING = 0,
+    EQUATION_FAILED,
+    INPUT_FAILED
+};
+
+enum NumberOfRoots {
+    ZERO_ROOTS = 0,
+    ONE_ROOT,
+    TWO_ROOTS
+};
 
 bool compareTwoDoubles (double a, double b);
 int solveEquation(double a, double b, double c, double* first_root, double* second_root);
+bool isNan(double n);
+bool isFinite(double n);
+
+
+bool isNan(double n) {
+    return n != n;
+}
+
+bool isFinite(double n) {
+    if (isinf(n)) {
+        return 0;
+    }
+
+    return !isNan(n);
+}
 
 
 //-----------------------------------------------------------------------
@@ -24,42 +53,59 @@ bool compareTwoDoubles (double a, double b) {
 
 
 int main() {
-    double first_coefficient = 0, second_coefficient = 0, third_coefficient = 0;
-
-    printf("\e[1;1H\e[2J");
+    printf(CLEAN_SCREEN);
     printf("Для решения уравнения вида ax^2 + bx + c = 0 введите по порядку все коэффициенты a, b, c\n");
 
+    double first_coefficient = 0;
+    double second_coefficient = 0;
+    double third_coefficient = 0;
+
     printf("Введите первый коэффициент(a): ");
-    scanf("%lf", &first_coefficient);
+    if (scanf("%lf", &first_coefficient) != 1) {
+        printf(WRONG_INPUT_MESSAGE);
+        return INPUT_FAILED;
+    }
 
     printf("Введите второй коэффициент(b): ");
-    scanf("%lf", &second_coefficient);
+    if (scanf("%lf", &second_coefficient) != 1) {
+        printf(WRONG_INPUT_MESSAGE);
+        return INPUT_FAILED;
+    }
 
     printf("Введите третий коэффициент(c): ");
-    scanf("%lf", &third_coefficient);
+    if (scanf("%lf", &third_coefficient) != 1) {
+        printf(WRONG_INPUT_MESSAGE);
+        return INPUT_FAILED;
+    }
 
-    double first_root = 0, second_root = 0;
+    double first_root = 0;
+    double second_root = 0;
     int number_of_roots = solveEquation(first_coefficient, second_coefficient, third_coefficient, &first_root, &second_root);
 
     switch (number_of_roots) {
         case 0:
             printf("Уравнение не имеет решений в действительных числах\n");
             break;
+
         case 1:
             printf("Уравнение имеет один корень: %lf\n", first_root);
             break;
+
         case 2:
             printf("Уравнение имеет два решения: %lf, %lf\n", first_root, second_root);
             break;
+
         case INFINITE_ROOTS:
             printf("Уравнение имеет бесконечное множество корней\n");
             break;
+
         default:
             printf("Что-то пошло не так...\n");
-            return 1;
+            return EQUATION_FAILED;
+
     }
 
-    return 0;
+    return WORKING;
 }
 
 //-----------------------------------------------------------------------
@@ -87,42 +133,30 @@ int solveEquation(double a, double b, double c, double* first_root, double* seco
     assert (first_root != second_root);
 
     if (compareTwoDoubles(a, 0)) {
-
         if (compareTwoDoubles(b, 0)) {
-
             if (compareTwoDoubles(c, 0)) {
-
                 return INFINITE_ROOTS;
-
             } else {
-
-                return 0;
-
+                return ZERO_ROOTS;
             }
-
         } else {
-
             *first_root = -c / b;
-            return 1;
-
+            return ONE_ROOT;
         }
-
     } else {
-
         double discriminant = b * b - 4 * a * c;
 
         if (discriminant < 0) {
-            return 0;
+            return ZERO_ROOTS;
         }
 
         *first_root = (-b + sqrt(discriminant)) / (2 * a);
 
         if (compareTwoDoubles(discriminant, 0)) {
-            return 1;
+            return ONE_ROOT;
         }
 
         *second_root = (-b - sqrt(discriminant)) / (2 * a);
-        return 2;
-
+        return TWO_ROOTS;
     }
 }
