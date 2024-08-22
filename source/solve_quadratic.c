@@ -31,7 +31,7 @@ enum NumberOfRoots solveEquation(Coefficients user_input,
     assert (second_root != NULL);
     assert (first_root != second_root);
 
-    if (compareTwoDoubles(user_input.first_coefficient, 0)) {
+    if (equatTwoDoubles(user_input.first_coefficient, 0)) {
         return LinearEquation(user_input.second_coefficient,
                          user_input.third_coefficient,
                          first_root);
@@ -61,6 +61,10 @@ enum NumberOfRoots quadraticEquation(double a,
                             double* first_root,
                             double* second_root)
 {
+    assert (isFinite(a));
+    assert (isFinite(b));
+    assert (isFinite(c));
+
     double discriminant = b * b - 4 * a * c;
 
         if (discriminant < 0) {
@@ -77,7 +81,7 @@ enum NumberOfRoots quadraticEquation(double a,
         *second_root = x2;
         *first_root = x1;
 
-        if (compareTwoDoubles(discriminant, 0)) {
+        if (equatTwoDoubles(discriminant, 0)) {
             return NumberOfRoots_ONE_ROOT;
         }
 
@@ -96,12 +100,13 @@ enum NumberOfRoots quadraticEquation(double a,
 //!
 //! @note   In case of infinite number of roots, returns INFINITE_ROOTS.
 //------------------------------------------------------------------------
-enum NumberOfRoots LinearEquation(double a,
-                             double b,
-                             double* first_root)
+enum NumberOfRoots LinearEquation(double a, double b, double* first_root)
 {
-    if (compareTwoDoubles(a, 0)) {
-        if (compareTwoDoubles(b, 0)) {
+    assert (isFinite(a));
+    assert (isFinite(b));
+
+    if (equatTwoDoubles(a, 0)) {
+        if (equatTwoDoubles(b, 0)) {
             return NumberOfRoots_INFINITE_ROOTS;
         } else {
             return NumberOfRoots_ZERO_ROOTS;

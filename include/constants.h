@@ -2,7 +2,7 @@
 #define CONSTANTS_H
 
 
-static const double EPS = 0.0000001;
+static const double EPS = 0.000000001;
 static const char CLEAR_SCREEN[] = "\e[1;1H\e[2J";
 static const char WRONG_INPUT_MESSAGE[] = "Некорректный ввод. Попробуйте снова\n";
 static const char SOMETHING_WENT_WRONG[] = "Что-то пошло не так\n";

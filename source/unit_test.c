@@ -26,9 +26,9 @@ enum Tests makeTest(TestData input_data)
     enum NumberOfRoots number_of_roots = solveEquation(input_data.input_coefficients,
                                              &first_root,
                                              &second_root);
-    if (!compareTwoDoubles(first_root, input_data.expected_first_root)
-        || !compareTwoDoubles(second_root, input_data.expected_second_root)
-        || !compareTwoDoubles(number_of_roots, input_data.expected_number_of_roots))
+    if (!equatTwoDoubles(first_root, input_data.expected_first_root)
+        || !equatTwoDoubles(second_root, input_data.expected_second_root)
+        || !equatTwoDoubles(number_of_roots, input_data.expected_number_of_roots))
     {
         printf("Error on test struct %d. Input a: %lf, b: %lf, c: %lf\n",
                input_data.number_of_test,

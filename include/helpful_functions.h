@@ -7,7 +7,9 @@ void swap(double* a, double* b);
 bool isInf(double n);
 bool isNan(double n);
 bool isFinite(double n);
-bool compareTwoDoubles (double a, double b);
+bool equatTwoDoubles (double a, double b);
+bool compareGreaterTwoDoubles (double a, double b);
+bool compareLesserTwoDoubles (double a, double b);
 void clearScreen();
 
 #endif // HELPFUL_FUNCTIONS_H

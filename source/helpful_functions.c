@@ -18,12 +18,35 @@ void clearScreen() {
 //! @param [in] a First double number
 //! @param [in] b Second double number
 //!
-//! @return True if a is greater than b and False if a is less than b
+//! @return True if a is equal to b and False if a is not equal to b
 //-----------------------------------------------------------------------
-bool compareTwoDoubles (double a, double b) {
+bool equatTwoDoubles (double a, double b) {
     return (fabs(a - b) < EPS);
 }
 
+//-----------------------------------------------------------------------
+//! Compares two numbers in double format
+//!
+//! @param [in] a First double number
+//! @param [in] b Second double number
+//!
+//! @return True if a is greater than b and False if a is less than b
+//-----------------------------------------------------------------------
+bool compareGreaterTwoDoubles (double a, double b) {
+    return (a - b > EPS);
+}
+
+//-----------------------------------------------------------------------
+//! Compares two numbers in double format
+//!
+//! @param [in] a First double number
+//! @param [in] b Second double number
+//!
+//! @return True if b is greater than a and False if b is less than a
+//-----------------------------------------------------------------------
+bool compareLesserTwoDoubles (double a, double b) {
+    return (b - a > EPS);
+}
 
 //--------------------------------------
 //! Swaps two numbers in double format

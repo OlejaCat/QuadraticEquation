@@ -6,12 +6,14 @@
 #include "../include/constants.h"
 #include "../include/unit_test.h"
 #include "../include/user_interaction.h"
+#include "../include/string_color.h"
 
 
 int main() {
-    // runTests();
+    runTests();
 
-    printf("Чтобы выйти из программы введите `q`, чтобы решить квадратку введите `s`\n");
+    char message[] = GREEN "Чтобы выйти из программы введите `q`" YELLOW ",чтобы решить квадратку введите `s`\n" RESET;
+    printf(message);
     char user_input[30] = {0};
 
     while (true) {
