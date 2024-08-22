@@ -1,8 +1,9 @@
 #include <stdio.h>
-#include <cassert>
+#include <assert.h>
 #include "../include/user_interaction.h"
 #include "../include/solve_quadratic.h"
 #include "../include/helpful_functions.h"
+#include "../include/constants.h"
 
 
 //--------------------------------------------------------------------------
@@ -14,28 +15,28 @@
 //!
 //! @return State_WORKING if input correct and State_EQUATION_FAILED if not
 //--------------------------------------------------------------------------
-enum State getCoefficients(double* a, double* b, double* c) {
-    assert (isFinite(*a));
-    assert (isFinite(*b));
-    assert (isFinite(*c));
+enum State getCoefficients(Coefficients* user_input) {
+    assert (isFinite(user_input->first_coefficient));
+    assert (isFinite(user_input->second_coefficient));
+    assert (isFinite(user_input->third_coefficient));
 
     clearScreen();
     printf("Для решения уравнения вида ax^2 + bx + c = 0 введите по порядку все коэффициенты a, b, c\n");
 
     printf("Введите первый коэффициент(a): ");
-    if (scanf("%lf", a) != 1) {
+    if (scanf("%lf", &user_input->first_coefficient) != 1) {
         printf(WRONG_INPUT_MESSAGE);
         return State_INPUT_FAILED;
     }
 
     printf("Введите второй коэффициент(b): ");
-    if (scanf("%lf", b) != 1) {
+    if (scanf("%lf", &user_input->second_coefficient) != 1) {
         printf(WRONG_INPUT_MESSAGE);
         return State_INPUT_FAILED;
     }
 
     printf("Введите третий коэффициент(c): ");
-    if (scanf("%lf", c) != 1) {
+    if (scanf("%lf", &user_input->third_coefficient) != 1) {
         printf(WRONG_INPUT_MESSAGE);
         return State_INPUT_FAILED;
     }

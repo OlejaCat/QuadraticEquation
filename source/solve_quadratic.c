@@ -1,7 +1,6 @@
-#include <cassert>
+#include <assert.h>
 #include <stdio.h>
 #include <math.h>
-#include <cmath>
 #include "../include/constants.h"
 #include "../include/solve_quadratic.h"
 #include "../include/helpful_functions.h"
@@ -20,24 +19,27 @@
 //!
 //! @note  uses quadratic and linear equations to solve
 //------------------------------------------------------------------------
-enum NumberOfRoots solveEquation(double a,
-                             double b,
-                             double c,
+enum NumberOfRoots solveEquation(Coefficients user_input,
                              double* first_root,
                              double* second_root)
 {
-    assert (isFinite(a));
-    assert (isFinite(b));
-    assert (isFinite(c));
+    assert (isFinite(user_input.first_coefficient));
+    assert (isFinite(user_input.second_coefficient));
+    assert (isFinite(user_input.third_coefficient));
 
     assert (first_root != NULL);
     assert (second_root != NULL);
     assert (first_root != second_root);
 
-    if (compareTwoDoubles(a, 0)) {
-        return LinearEquation(b, c, first_root);
+    if (compareTwoDoubles(user_input.first_coefficient, 0)) {
+        return LinearEquation(user_input.second_coefficient,
+                         user_input.third_coefficient,
+                         first_root);
     } else {
-        return quadraticEquation(a, b, c, first_root, second_root);
+        return quadraticEquation(user_input.first_coefficient,
+                            user_input.second_coefficient,
+                            user_input.third_coefficient,
+                            first_root, second_root);
     }
 }
 
@@ -54,10 +56,10 @@ enum NumberOfRoots solveEquation(double a,
 //! @return Number of roots
 //-----------------------------------------------------------------------
 enum NumberOfRoots quadraticEquation(double a,
-                             double b,
-                             double c,
-                             double* first_root,
-                             double* second_root)
+                            double b,
+                            double c,
+                            double* first_root,
+                            double* second_root)
 {
     double discriminant = b * b - 4 * a * c;
 
@@ -86,26 +88,26 @@ enum NumberOfRoots quadraticEquation(double a,
 //-----------------------------------------------------------------------
 //!Solves a square equation ax + b = 0
 //!
-//! @param [in]   first_coefficient    Fisrt coefficient
-//! @param [in]   second_coefficient   Second coefficient
+//! @param [in]   a                    Fisrt coefficient
+//! @param [in]   b                    Second coefficient
 //! @param [out]  first_root           Pointer to the 1st root
 //!
 //! @return Number of roots
 //!
 //! @note   In case of infinite number of roots, returns INFINITE_ROOTS.
 //------------------------------------------------------------------------
-enum NumberOfRoots LinearEquation(double first_coefficient,
-                             double second_coefficient,
+enum NumberOfRoots LinearEquation(double a,
+                             double b,
                              double* first_root)
 {
-    if (compareTwoDoubles(first_coefficient, 0)) {
-        if (compareTwoDoubles(second_coefficient, 0)) {
+    if (compareTwoDoubles(a, 0)) {
+        if (compareTwoDoubles(b, 0)) {
             return NumberOfRoots_INFINITE_ROOTS;
         } else {
             return NumberOfRoots_ZERO_ROOTS;
         }
     } else {
-        *first_root = -second_coefficient / first_coefficient;
+        *first_root = -b / a;
         return NumberOfRoots_ONE_ROOT;
     }
 }

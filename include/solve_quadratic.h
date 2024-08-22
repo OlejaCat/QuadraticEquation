@@ -10,18 +10,8 @@ enum NumberOfRoots {
     NumberOfRoots_TWO_ROOTS      =  2,
 };
 
-enum NumberOfRoots solveEquation(double a,
-                             double b,
-                             double c,
-                             double* first_root,
-                             double* second_root);
-enum NumberOfRoots LinearEquation(double first_coefficient,
-                             double second_coefficient,
-                             double* first_root);
-enum NumberOfRoots quadraticEquation(double a,
-                             double b,
-                             double c,
-                             double* first_root,
-                             double* second_root);
+enum NumberOfRoots solveEquation(Coefficients user_input, double* first_root, double* second_root);
+enum NumberOfRoots LinearEquation(double a, double b, double* first_root);
+enum NumberOfRoots quadraticEquation(double a, double b, double c, double* first_root, double* second_root);
 
 #endif // SOLVE_QUDRATIC_H

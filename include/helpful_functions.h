@@ -1,6 +1,7 @@
 #ifndef HELPFUL_FUNCTIONS_H
 #define HELPFUL_FUNCTIONS_H
 
+#include <stdbool.h>
 
 void swap(double* a, double* b);
 bool isInf(double n);

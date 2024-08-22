@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 #include "../include/helpful_functions.h"
 #include "../include/solve_quadratic.h"
 #include "../include/constants.h"
@@ -8,7 +9,7 @@
 
 
 int main() {
-    runTests();
+    // runTests();
 
     printf("Чтобы выйти из программы введите `q`, чтобы решить квадратку введите `s`\n");
     char user_input[30] = {0};
@@ -19,11 +20,9 @@ int main() {
         if (strcmp(user_input, "quit") == 0 || strcmp(user_input, "q") == 0) {
             break;
         } else if (strcmp(user_input, "solve") == 0 || strcmp(user_input, "s") == 0) {
-            double first_coefficient = 0;
-            double second_coefficient = 0;
-            double third_coefficient = 0;
+            struct coefficients user_coefficients = {0, 0, 0};
 
-            enum State exit_code_input = getCoefficients(&first_coefficient, &second_coefficient, &third_coefficient);
+            enum State exit_code_input = getCoefficients(&user_coefficients);
 
             if (exit_code_input == State_INPUT_FAILED) {
                 continue;
@@ -31,9 +30,7 @@ int main() {
 
             double first_root = 0;
             double second_root = 0;
-            enum NumberOfRoots number_of_roots = solveEquation(first_coefficient,
-                                         second_coefficient,
-                                         third_coefficient,
+            enum NumberOfRoots number_of_roots = solveEquation(user_coefficients,
                                          &first_root,
                                          &second_root);
 
