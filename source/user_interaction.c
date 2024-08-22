@@ -1,6 +1,8 @@
+#include "../include/user_interaction.h"
+
 #include <stdio.h>
 #include <assert.h>
-#include "../include/user_interaction.h"
+
 #include "../include/solve_quadratic.h"
 #include "../include/helpful_functions.h"
 #include "../include/constants.h"
@@ -9,13 +11,11 @@
 //--------------------------------------------------------------------------
 //! Gets coefficients of quadratic equation
 //!
-//! @param [out] a First coefficient
-//! @param [out] b Second coefficient
-//! @param [out] c Third coefficient
+//! @param [out] user_input
 //!
 //! @return State_WORKING if input correct and State_EQUATION_FAILED if not
 //--------------------------------------------------------------------------
-enum State getCoefficients(Coefficients* user_input) {
+State getCoefficientsSlow(Coefficients* user_input) {
     assert (isFinite(user_input->first_coefficient));
     assert (isFinite(user_input->second_coefficient));
     assert (isFinite(user_input->third_coefficient));
@@ -45,6 +45,32 @@ enum State getCoefficients(Coefficients* user_input) {
 }
 
 
+// //--------------------------------------------------------------------------
+// //! Gets coefficients of quadratic equation
+// //!
+// //! @param [out] user_input
+// //!
+// //! @return State_WORKING if input correct and State_EQUATION_FAILED if not
+// //!
+// //! @note The same as `slow` version but makes it one line and with argv
+// //--------------------------------------------------------------------------
+// State getCoefficientsFast(Coefficients user_input) {
+//     assert (isFinite(user_input.first_coefficient));
+//     assert (isFinite(user_input.second_coefficient));
+//     assert (isFinite(user_input.third_coefficient));
+//
+//     if (sscanf(argv[2], "%lf", &user_coefficients.first_coefficient) != 1
+//         || sscanf(argv[3], "%lf", &user_coefficients.second_coefficient) != 1
+//         || sscanf(argv[4], "%lf", &user_coefficients.third_coefficient) != 1)
+//     {
+//         printf(WRONG_INPUT_MESSAGE);
+//         return State_INPUT_FAILED;
+//     }
+//
+//     return State_WORKING;
+// }
+
+
 //-------------------------------------------------------------------------------
 //! Makes output of roots
 //!
@@ -54,7 +80,7 @@ enum State getCoefficients(Coefficients* user_input) {
 //!
 //! @return State_WORKING if everething OK and State_EQUATION_FAILED if not OK
 //-------------------------------------------------------------------------------
-enum State printRoots(int number_of_roots, double first_root, double second_root) {
+State printRoots(int number_of_roots, double first_root, double second_root) {
     assert (isFinite(number_of_roots));
     assert (isFinite(first_root));
     assert (isFinite(second_root));

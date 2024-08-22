@@ -1,6 +1,8 @@
+#include "../include/helpful_functions.h"
+
 #include <math.h>
 #include <stdio.h>
-#include "../include/helpful_functions.h"
+
 #include "../include/constants.h"
 
 

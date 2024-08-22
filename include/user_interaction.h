@@ -1,4 +1,9 @@
+#ifndef USER_INTERACTION
+#define USER_INTERACTION
+
 #include "constants.h"
 
-enum State getCoefficients(Coefficients* user_input);
-enum State printRoots(int number_of_roots, double first_root, double second_root);
+State getCoefficientsSlow(Coefficients* user_input);
+State printRoots(int number_of_roots, double first_root, double second_root);
+
+#endif // USER_INTERACTION

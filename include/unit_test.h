@@ -1,9 +1,14 @@
-enum Tests {
+#ifndef UNIT_TEST_H
+#define UNIT_TEST_H
+
+#include "constants.h"
+
+typedef enum Tests {
     Tests_WORKING   = 1,
     Tests_TEST_FAIL = 0,
-};
+} Tests;
 
-typedef struct test_data {
+typedef struct TestData {
     int number_of_test;
     Coefficients input_coefficients;
     double expected_first_root;
@@ -12,4 +17,6 @@ typedef struct test_data {
 } TestData;
 
 int runTests();
-enum Tests makeTest(TestData);
+Tests makeTest(TestData);
+
+#endif // UNIT_TEST_H

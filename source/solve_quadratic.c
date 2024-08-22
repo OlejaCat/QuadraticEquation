@@ -1,8 +1,10 @@
+#include "../include/solve_quadratic.h"
+
 #include <assert.h>
 #include <stdio.h>
 #include <math.h>
+
 #include "../include/constants.h"
-#include "../include/solve_quadratic.h"
 #include "../include/helpful_functions.h"
 
 
@@ -19,7 +21,7 @@
 //!
 //! @note  uses quadratic and linear equations to solve
 //------------------------------------------------------------------------
-enum NumberOfRoots solveEquation(Coefficients user_input,
+NumberOfRoots solveEquation(Coefficients user_input,
                              double* first_root,
                              double* second_root)
 {
@@ -55,7 +57,7 @@ enum NumberOfRoots solveEquation(Coefficients user_input,
 //!
 //! @return Number of roots
 //-----------------------------------------------------------------------
-enum NumberOfRoots quadraticEquation(double a,
+NumberOfRoots quadraticEquation(double a,
                             double b,
                             double c,
                             double* first_root,
@@ -100,7 +102,7 @@ enum NumberOfRoots quadraticEquation(double a,
 //!
 //! @note   In case of infinite number of roots, returns INFINITE_ROOTS.
 //------------------------------------------------------------------------
-enum NumberOfRoots LinearEquation(double a, double b, double* first_root)
+NumberOfRoots LinearEquation(double a, double b, double* first_root)
 {
     assert (isFinite(a));
     assert (isFinite(b));

@@ -1,8 +1,11 @@
+#include "../include/unit_test.h"
+
 #include <stdio.h>
+
 #include "../include/constants.h"
 #include "../include/solve_quadratic.h"
 #include "../include/helpful_functions.h"
-#include "../include/unit_test.h"
+#include "../include/string_color.h"
 
 
 //-------------------------------------------------------------------------
@@ -18,34 +21,34 @@
 //!
 //! @return State_TEST_FAIL or State_WORKING
 //-------------------------------------------------------------------------
-enum Tests makeTest(TestData input_data)
+Tests makeTest(TestData input_data)
 {
     double first_root = 0;
     double second_root = 0;
 
-    enum NumberOfRoots number_of_roots = solveEquation(input_data.input_coefficients,
+    NumberOfRoots number_of_roots = solveEquation(input_data.input_coefficients,
                                              &first_root,
                                              &second_root);
     if (!equatTwoDoubles(first_root, input_data.expected_first_root)
         || !equatTwoDoubles(second_root, input_data.expected_second_root)
         || !equatTwoDoubles(number_of_roots, input_data.expected_number_of_roots))
     {
-        printf("Error on test struct %d. Input a: %lf, b: %lf, c: %lf\n",
+        printf(BOLD_RED "Test %d failed\n\tInput a: %lf, b: %lf, c: %lf\n",
                input_data.number_of_test,
                input_data.input_coefficients.first_coefficient,
                input_data.input_coefficients.second_coefficient,
                input_data.input_coefficients.third_coefficient);
-        printf("Expected first root: %lf, second root: %lf, number of roots: %d\n",
+        printf(BOLD_RED "\tExpected first root: %lf, second root: %lf, number of roots: %d\n",
                input_data.expected_first_root,
                input_data.expected_second_root,
                input_data.expected_number_of_roots);
-        printf("Got first root: %lf, second root: %lf, number of roots: %d\n",
+        printf(BOLD_RED "\tGot first root: %lf, second root: %lf, number of roots: %d\n",
                first_root,
                second_root,
                number_of_roots);
         return Tests_TEST_FAIL;
     }
-    printf("Test %d passed\n", input_data.number_of_test);
+    printf(BOLD_GREEN "Test %d passed\n", input_data.number_of_test);
     return Tests_WORKING;
 }
 
@@ -55,6 +58,8 @@ enum Tests makeTest(TestData input_data)
 //------------------
 int runTests()
 {
+    clearScreen();
+
     TestData test1 = {
         .number_of_test                        =  1,
         .input_coefficients                    =  {0, 0, 0},
@@ -75,7 +80,7 @@ int runTests()
         .number_of_test                        =  3,
         .input_coefficients                    =  {0, 10, 0},
         .expected_first_root                   =  0,
-        .expected_second_root                  =  0,
+        .expected_second_root                  =  1,
         .expected_number_of_roots              =  NumberOfRoots_ONE_ROOT,
     };
 
@@ -125,7 +130,7 @@ int runTests()
 
     int test_passed = 0;
 
-    int number_of_tests = sizeof(tests)/sizeof(tests[0]);
+    int number_of_tests = sizeof(tests) / sizeof(tests[0]);
     for (int number_of_test = 0; number_of_test < number_of_tests; number_of_test++) {
         test_passed += makeTest(tests[number_of_test]);
     }
