@@ -5,5 +5,6 @@
 
 State getCoefficientsSlow(Coefficients* user_input);
 State printRoots(int number_of_roots, double first_root, double second_root);
+State fastSolve(char** argv);
 
 #endif // USER_INTERACTION

@@ -22,26 +22,29 @@
 //! @note  uses quadratic and linear equations to solve
 //------------------------------------------------------------------------
 NumberOfRoots solveEquation(Coefficients user_input,
-                             double* first_root,
-                             double* second_root)
+                            double* first_root,
+                            double* second_root)
 {
     assert (isFinite(user_input.first_coefficient));
     assert (isFinite(user_input.second_coefficient));
     assert (isFinite(user_input.third_coefficient));
 
-    assert (first_root != NULL);
+    assert (first_root  != NULL);
     assert (second_root != NULL);
-    assert (first_root != second_root);
+    assert (first_root  != second_root);
 
-    if (equatTwoDoubles(user_input.first_coefficient, 0)) {
+    if (equatTwoDoubles(user_input.first_coefficient, 0))
+    {
         return LinearEquation(user_input.second_coefficient,
-                         user_input.third_coefficient,
-                         first_root);
-    } else {
+                              user_input.third_coefficient,
+                              first_root);
+    }
+    else
+    {
         return quadraticEquation(user_input.first_coefficient,
-                            user_input.second_coefficient,
-                            user_input.third_coefficient,
-                            first_root, second_root);
+                                 user_input.second_coefficient,
+                                 user_input.third_coefficient,
+                                 first_root, second_root);
     }
 }
 
@@ -58,10 +61,10 @@ NumberOfRoots solveEquation(Coefficients user_input,
 //! @return Number of roots
 //-----------------------------------------------------------------------
 NumberOfRoots quadraticEquation(double a,
-                            double b,
-                            double c,
-                            double* first_root,
-                            double* second_root)
+                                double b,
+                                double c,
+                                double* first_root,
+                                double* second_root)
 {
     assert (isFinite(a));
     assert (isFinite(b));
@@ -69,21 +72,24 @@ NumberOfRoots quadraticEquation(double a,
 
     double discriminant = b * b - 4 * a * c;
 
-        if (discriminant < 0) {
+        if (discriminant < 0)
+        {
             return NumberOfRoots_ZERO_ROOTS;
         }
 
         double x1 = (-b - sqrt(discriminant)) / (2 * a);
         double x2 = (-b + sqrt(discriminant)) / (2 * a);
 
-        if (x2 < x1) {
-            swap(&x1, &x2);
+        if (x2 < x1)
+        {
+            swap(&x1, &x2, sizeof(double));
         }
 
         *second_root = x2;
         *first_root = x1;
 
-        if (equatTwoDoubles(discriminant, 0)) {
+        if (equatTwoDoubles(discriminant, 0))
+        {
             return NumberOfRoots_ONE_ROOT;
         }
 
@@ -102,15 +108,21 @@ NumberOfRoots quadraticEquation(double a,
 //!
 //! @note   In case of infinite number of roots, returns INFINITE_ROOTS.
 //------------------------------------------------------------------------
-NumberOfRoots LinearEquation(double a, double b, double* first_root)
+NumberOfRoots LinearEquation(double a,
+                             double b,
+                             double* first_root)
 {
     assert (isFinite(a));
     assert (isFinite(b));
 
-    if (equatTwoDoubles(a, 0)) {
-        if (equatTwoDoubles(b, 0)) {
+    if (equatTwoDoubles(a, 0))
+    {
+        if (equatTwoDoubles(b, 0))
+        {
             return NumberOfRoots_INFINITE_ROOTS;
-        } else {
+        }
+        else
+        {
             return NumberOfRoots_ZERO_ROOTS;
         }
     } else {

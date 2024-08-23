@@ -3,15 +3,18 @@
 
 #include "string_color.h"
 
-static const char TEST_FLAG[] = "--test";
-static const char VERSION_FLAG[] = "--version";
-static const char USER_FLAG[] = "--user";
-static const char HELP_FLAG[] = "--help";
-static const char FAST_SOLVE_FLAG[] = "--fast-solve";
-static const double EPS = 0.000000001;
-static const char CLEAR_SCREEN[] = "\e[1;1H\e[2J";
-static const char WRONG_INPUT_MESSAGE[] = BOLD_YELLOW "Некорректный ввод. Попробуйте снова\n";
-static const char SOMETHING_WENT_WRONG[] = BOLD_RED "Что-то пошло не так\n";
+// macros to count array size
+#define SIZE_OF_ARRAY(arr) (sizeof(arr) / sizeof(arr[0]))
+
+static const char   TEST_FLAG[]            = "--test";
+static const char   VERSION_FLAG[]         = "--version";
+static const char   USER_FLAG[]            = "--user";
+static const char   HELP_FLAG[]            = "--help";
+static const char   FAST_SOLVE_FLAG[]      = "--fast-solve";
+static const char   CLEAR_SCREEN[]         = "\e[1;1H\e[2J";
+static const char   WRONG_INPUT_MESSAGE[]  = BOLD_YELLOW "Некорректный ввод. Попробуйте снова\n";
+static const char   SOMETHING_WENT_WRONG[] = BOLD_RED "Что-то пошло не так\n";
+static const double EPS                    = 0.000000001;
 
 static const char HELP_MESSAGE[] = (
     "Аргументы:\n"
@@ -24,14 +27,15 @@ static const char HELP_MESSAGE[] = (
 
 static const char VERSION[] = "Версия 1\n";
 
-typedef struct Coefficients {
+typedef struct Coefficients
+{
     double first_coefficient;
     double second_coefficient;
     double third_coefficient;
 } Coefficients;
 
-
-typedef enum State {
+typedef enum State
+{
     State_WORKING         = 0,
     State_EQUATION_FAILED = 1,
     State_INPUT_FAILED    = 2,

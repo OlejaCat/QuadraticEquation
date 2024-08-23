@@ -3,7 +3,8 @@
 
 #include "constants.h"
 
-typedef enum NumberOfRoots {
+typedef enum NumberOfRoots
+{
     NumberOfRoots_INFINITE_ROOTS = -1,
     NumberOfRoots_ZERO_ROOTS     =  0,
     NumberOfRoots_ONE_ROOT       =  1,
