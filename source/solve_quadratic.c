@@ -25,13 +25,13 @@ NumberOfRoots solveEquation(Coefficients user_input,
                             double* first_root,
                             double* second_root)
 {
-    assert (isFinite(user_input.first_coefficient));
-    assert (isFinite(user_input.second_coefficient));
-    assert (isFinite(user_input.third_coefficient));
+    assertStrict (isFinite(user_input.first_coefficient));
+    assertStrict (isFinite(user_input.second_coefficient));
+    assertStrict (isFinite(user_input.third_coefficient));
 
-    assert (first_root  != NULL);
-    assert (second_root != NULL);
-    assert (first_root  != second_root);
+    assertStrict (first_root  != NULL);
+    assertStrict (second_root != NULL);
+    assertStrict (first_root  != second_root);
 
     if (equatTwoDoubles(user_input.first_coefficient, 0))
     {
@@ -66,9 +66,9 @@ NumberOfRoots quadraticEquation(double a,
                                 double* first_root,
                                 double* second_root)
 {
-    assert (isFinite(a));
-    assert (isFinite(b));
-    assert (isFinite(c));
+    assertStrict (isFinite(a));
+    assertStrict (isFinite(b));
+    assertStrict (isFinite(c));
 
     double discriminant = b * b - 4 * a * c;
 
@@ -112,8 +112,8 @@ NumberOfRoots LinearEquation(double a,
                              double b,
                              double* first_root)
 {
-    assert (isFinite(a));
-    assert (isFinite(b));
+    assertStrict (isFinite(a));
+    assertStrict (isFinite(b));
 
     if (equatTwoDoubles(a, 0))
     {

@@ -27,8 +27,9 @@ Tests makeTest(TestData input_data)
     double second_root = 0;
 
     NumberOfRoots number_of_roots = solveEquation(input_data.input_coefficients,
-                                             &first_root,
-                                             &second_root);
+                                                  &first_root,
+                                                  &second_root);
+
     if (   !equatTwoDoubles(first_root,      input_data.expected_first_root)
         || !equatTwoDoubles(second_root,     input_data.expected_second_root)
         || !equatTwoDoubles(number_of_roots, input_data.expected_number_of_roots))
@@ -48,6 +49,7 @@ Tests makeTest(TestData input_data)
                number_of_roots);
         return Tests_TEST_FAIL;
     }
+
     printf(BOLD_GREEN "Test %d passed\n", input_data.number_of_test);
     return Tests_WORKING;
 }
@@ -134,5 +136,6 @@ int runTests()
     {
         test_passed += makeTest(tests[number_of_test]);
     }
+
     return test_passed;
 }

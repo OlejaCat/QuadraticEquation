@@ -14,14 +14,14 @@ State runUserInterface()
 {
     clearScreen();
 
-    printf(BOLD_GREEN
-           "Чтобы выйти из программы введите `%s` или `%s`"
+    printf(BOLD_GREEN "Чтобы выйти из программы введите `%s` или `%s`"
            ",чтобы решить квадратку введите `%s` или `%s`\n" RESET,
            QUIT_COMMAND, Q_COMMAND, SOLVE_COMMAND, S_COMMAND);
 
     char user_input[30] = {0};
 
-    while (true) {
+    while (true)
+    {
         printf("eq:");
         scanf("%s", &user_input);
         if (strcmp(user_input, QUIT_COMMAND) == 0 || strcmp(user_input, Q_COMMAND) == 0)
@@ -42,6 +42,7 @@ State runUserInterface()
 
             double first_root = 0;
             double second_root = 0;
+
             NumberOfRoots number_of_roots = solveEquation(user_coefficients,
                                                           &first_root,
                                                           &second_root);

@@ -38,8 +38,7 @@ int main(int argc, char** argv)
         sleep(1); // hehe
         runUserInterface();
     }
-    else if (!strcmp(argv[1], FAST_SOLVE_FLAG)
-          || argc != 4)
+    else if (!strcmp(argv[1], FAST_SOLVE_FLAG) && argc == 5)
     {
         fastSolve(argv);
     }

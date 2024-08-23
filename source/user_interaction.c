@@ -17,9 +17,9 @@
 //--------------------------------------------------------------------------
 State getCoefficientsSlow(Coefficients* user_input)
 {
-    assert (isFinite(user_input->first_coefficient));
-    assert (isFinite(user_input->second_coefficient));
-    assert (isFinite(user_input->third_coefficient));
+    assertStrict (isFinite(user_input->first_coefficient));
+    assertStrict (isFinite(user_input->second_coefficient));
+    assertStrict (isFinite(user_input->third_coefficient));
 
     clearScreen();
     printf("Для решения уравнения вида ax^2 + bx + c = 0 введите по порядку все коэффициенты a, b, c\n");
@@ -73,8 +73,8 @@ State fastSolve(char** argv)
     double first_root = 0;
     double second_root = 0;
     NumberOfRoots number_of_roots = solveEquation(user_coefficients,
-                                                    &first_root,
-                                                    &second_root);
+                                                  &first_root,
+                                                  &second_root);
 
     printRoots(number_of_roots, first_root, second_root);
 
@@ -93,9 +93,9 @@ State fastSolve(char** argv)
 //-------------------------------------------------------------------------------
 State printRoots(int number_of_roots, double first_root, double second_root)
 {
-    assert (isFinite(number_of_roots));
-    assert (isFinite(first_root));
-    assert (isFinite(second_root));
+    assertStrict (isFinite(number_of_roots));
+    assertStrict (isFinite(first_root));
+    assertStrict (isFinite(second_root));
 
     switch (number_of_roots) {
         case NumberOfRoots_ZERO_ROOTS:
