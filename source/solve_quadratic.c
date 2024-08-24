@@ -1,26 +1,13 @@
-#include "../include/solve_quadratic.h"
+#include "solve_quadratic.h"
 
 #include <assert.h>
 #include <stdio.h>
 #include <math.h>
 
-#include "../include/constants.h"
-#include "../include/helpful_functions.h"
+#include "constants.h"
+#include "helpful_functions.h"
 
 
-//-----------------------------------------------------------------------
-//!Solves a square equation ax^2 + bx + c = 0
-//!
-//! @param [in]   a            Fisrt coefficient
-//! @param [in]   b            Second coefficient
-//! @param [in]   c            Third coefficient
-//! @param [out]  first_root   Pointer to the 1st root
-//! @param [out]  second_root  Pointer to the 2nd root
-//!
-//! @return Number of roots
-//!
-//! @note  uses quadratic and linear equations to solve
-//------------------------------------------------------------------------
 NumberOfRoots solveEquation(Coefficients user_input,
                             double* first_root,
                             double* second_root)
@@ -49,36 +36,36 @@ NumberOfRoots solveEquation(Coefficients user_input,
 }
 
 
-//-----------------------------------------------------------------------
-//!Solves a square equation ax^2 + bx + c = 0 where a != 0
-//!
-//! @param [in]   a               Fisrt coefficient
-//! @param [in]   b               Second coefficient
-//! @param [in]   c               Third coefficient
-//! @param [out]  first_root      Pointer to the 1st root
-//! @param [out]  second_root     Pointer to the 2nd root
-//!
-//! @return Number of roots
-//-----------------------------------------------------------------------
-NumberOfRoots quadraticEquation(double a,
-                                double b,
-                                double c,
-                                double* first_root,
-                                double* second_root)
+NumberOfRoots quadraticEquation(const double a,
+                                const double b,
+                                const double c,
+                                double*      first_root,
+                                double*      second_root)
 {
     assertStrict (isFinite(a));
     assertStrict (isFinite(b));
     assertStrict (isFinite(c));
 
-    double discriminant = b * b - 4 * a * c;
+    const double discriminant = b * b - 4 * a * c;
 
         if (discriminant < 0)
         {
             return NumberOfRoots_ZERO_ROOTS;
         }
 
-        double x1 = (-b - sqrt(discriminant)) / (2 * a);
-        double x2 = (-b + sqrt(discriminant)) / (2 * a);
+
+        double sqrt_discriminant = sqrt(discriminant);
+
+        double x1 = (-b - sqrt_discriminant) / (2 * a);
+        double x2 = (-b + sqrt_discriminant) / (2 * a);
+
+        if (equatTwoDoubles(x1, 0)) {
+            x1 = fabs(x1);
+        }
+
+        if (equatTwoDoubles(x1, 0)) {
+            x2 = fabs(x2);
+        }
 
         if (x2 < x1)
         {
@@ -97,20 +84,9 @@ NumberOfRoots quadraticEquation(double a,
 }
 
 
-//-----------------------------------------------------------------------
-//!Solves a square equation ax + b = 0
-//!
-//! @param [in]   a                    Fisrt coefficient
-//! @param [in]   b                    Second coefficient
-//! @param [out]  first_root           Pointer to the 1st root
-//!
-//! @return Number of roots
-//!
-//! @note   In case of infinite number of roots, returns INFINITE_ROOTS.
-//------------------------------------------------------------------------
-NumberOfRoots LinearEquation(double a,
-                             double b,
-                             double* first_root)
+NumberOfRoots LinearEquation(const double a,
+                             const double b,
+                             double*      first_root)
 {
     assertStrict (isFinite(a));
     assertStrict (isFinite(b));

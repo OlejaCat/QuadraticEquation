@@ -1,5 +1,5 @@
 #ifndef STRING_COLOR_H
-#define STRINIG_COLOR_H
+#define STRING_COLOR_H
 
 #ifdef __linux__
 
@@ -46,4 +46,4 @@
 #endif
 
 
-#endif // STRINIG_COLOR_H
+#endif // STRING_COLOR_H

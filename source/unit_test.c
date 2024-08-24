@@ -1,27 +1,14 @@
-#include "../include/unit_test.h"
+#include "unit_test.h"
 
 #include <stdio.h>
 
-#include "../include/constants.h"
-#include "../include/solve_quadratic.h"
-#include "../include/helpful_functions.h"
-#include "../include/string_color.h"
+#include "constants.h"
+#include "solve_quadratic.h"
+#include "helpful_functions.h"
+#include "string_color.h"
 
 
-//-------------------------------------------------------------------------
-//! Checks if quadration equation is correct
-//!
-//! @param [in] number_of_tests           Number of test
-//! @param [in] first_coefficient         Fisrt coefficient
-//! @param [in] second_coefficient        Second coefficient
-//! @param [in] third_coefficient         Third coefficient
-//! @param [in] expected_first_root       First root that is expected
-//! @param [in] expected_second_root      Second root that is expected
-//! @param [in] expected_number_of_roots  Number of roots that is expected
-//!
-//! @return State_TEST_FAIL or State_WORKING
-//-------------------------------------------------------------------------
-Tests makeTest(TestData input_data)
+Tests makeTest(const TestData input_data)
 {
     double first_root = 0;
     double second_root = 0;
@@ -55,13 +42,8 @@ Tests makeTest(TestData input_data)
 }
 
 
-//------------------
-//! Runs some tests
-//------------------
-int runTests()
+int runTests(void)
 {
-    clearScreen();
-
     TestData tests[8] = {
         // 1
         {
@@ -129,7 +111,7 @@ int runTests()
         }
     };
 
-    int test_passed = 0;
+    unsigned test_passed = 0;
 
     int number_of_tests = SIZE_OF_ARRAY(tests);
     for (int number_of_test = 0; number_of_test < number_of_tests; number_of_test++)
@@ -137,5 +119,5 @@ int runTests()
         test_passed += makeTest(tests[number_of_test]);
     }
 
-    return test_passed;
+    return (int) test_passed;
 }

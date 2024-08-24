@@ -8,6 +8,9 @@ static const char SOLVE_COMMAND[] = "solve";
 static const char Q_COMMAND[]     = "q";
 static const char S_COMMAND[]     = "s";
 
-enum State runUserInterface();
+//---------------------------
+//! Runs user interface
+//---------------------------
+enum State runUserInterface(void);
 
 #endif // USER_INTERFACE_H

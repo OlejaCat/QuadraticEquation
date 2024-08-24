@@ -1,20 +1,43 @@
-#include "../include/user_interaction.h"
+#include "user_interaction.h"
 
 #include <stdio.h>
 #include <assert.h>
 
-#include "../include/solve_quadratic.h"
-#include "../include/helpful_functions.h"
-#include "../include/constants.h"
+#include "solve_quadratic.h"
+#include "helpful_functions.h"
+#include "constants.h"
 
 
-//--------------------------------------------------------------------------
-//! Gets coefficients of quadratic equation
-//!
-//! @param [out] user_input
-//!
-//! @return State_WORKING if input correct and State_EQUATION_FAILED if not
-//--------------------------------------------------------------------------
+State getOneCoefficient(const char* name_of_coefficient,
+                        const char* short_name_of_coefficient,
+                        double* coefficient)
+{
+    while (true)
+    {
+        printf("Введите %s коэффициент(%s): ",
+               name_of_coefficient,
+               short_name_of_coefficient);
+
+        int result_of_scanf = scanf("%lf", coefficient);
+
+        if (result_of_scanf == EOF) {
+            clearBuffer();
+            clearerr(stdin);
+            return State_EXIT_WITH_EOF;
+        }
+
+        int user_char;
+        if ((user_char = getchar()) != (int) '\n') {
+            printf(WRONG_INPUT_MESSAGE);
+            clearBuffer();
+            continue;
+        }
+
+        return State_WORKING;
+    }
+}
+
+
 State getCoefficientsSlow(Coefficients* user_input)
 {
     assertStrict (isFinite(user_input->first_coefficient));
@@ -24,24 +47,18 @@ State getCoefficientsSlow(Coefficients* user_input)
     clearScreen();
     printf("Для решения уравнения вида ax^2 + bx + c = 0 введите по порядку все коэффициенты a, b, c\n");
 
-    printf("Введите первый коэффициент(a): ");
-    if (scanf("%lf", &user_input->first_coefficient) != 1)
+    if (getOneCoefficient("первый", "a", &user_input->first_coefficient) == State_EXIT_WITH_EOF)
     {
-        printf(WRONG_INPUT_MESSAGE);
         return State_INPUT_FAILED;
     }
 
-    printf("Введите второй коэффициент(b): ");
-    if (scanf("%lf", &user_input->second_coefficient) != 1)
+    if (getOneCoefficient("второй", "b", &user_input->second_coefficient) == State_EXIT_WITH_EOF)
     {
-        printf(WRONG_INPUT_MESSAGE);
         return State_INPUT_FAILED;
     }
 
-    printf("Введите третий коэффициент(c): ");
-    if (scanf("%lf", &user_input->third_coefficient) != 1)
+    if (getOneCoefficient("третий", "c", &user_input->third_coefficient) == State_EXIT_WITH_EOF)
     {
-        printf(WRONG_INPUT_MESSAGE);
         return State_INPUT_FAILED;
     }
 
@@ -49,16 +66,7 @@ State getCoefficientsSlow(Coefficients* user_input)
 }
 
 
-// //--------------------------------------------------------------------------
-// //! Gets coefficients of quadratic equation
-// //!
-// //! @param [out] user_input
-// //!
-// //! @return State_WORKING if input correct and State_EQUATION_FAILED if not
-// //!
-// //! @note The same as `slow` version but makes it one line and with argv
-// //--------------------------------------------------------------------------
-State fastSolve(char** argv)
+State fastSolve(const char** argv)
 {
     Coefficients user_coefficients = {0, 0, 0};
 
@@ -82,16 +90,9 @@ State fastSolve(char** argv)
 }
 
 
-//-------------------------------------------------------------------------------
-//! Makes output of roots
-//!
-//! @param [in] number_of_roots
-//! @param [in]      first_root
-//! @param [in]     second_root
-//!
-//! @return State_WORKING if everething OK and State_EQUATION_FAILED if not OK
-//-------------------------------------------------------------------------------
-State printRoots(int number_of_roots, double first_root, double second_root)
+State printRoots(const int number_of_roots,
+                 const double first_root,
+                 const double second_root)
 {
     assertStrict (isFinite(number_of_roots));
     assertStrict (isFinite(first_root));

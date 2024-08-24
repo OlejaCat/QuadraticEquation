@@ -1,16 +1,16 @@
-#include "../include/user_interface.h"
+#include "user_interface.h"
 
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
 
-#include "../include/solve_quadratic.h"
-#include "../include/user_interaction.h"
-#include "../include/string_color.h"
-#include "../include/helpful_functions.h"
+#include "solve_quadratic.h"
+#include "user_interaction.h"
+#include "string_color.h"
+#include "helpful_functions.h"
 
 
-State runUserInterface()
+State runUserInterface(void)
 {
     clearScreen();
 
@@ -18,18 +18,31 @@ State runUserInterface()
            ",чтобы решить квадратку введите `%s` или `%s`\n" RESET,
            QUIT_COMMAND, Q_COMMAND, SOLVE_COMMAND, S_COMMAND);
 
-    char user_input[30] = {0};
+    // TODO const
+    char user_input[SIZE_OF_BUFFER];
 
     while (true)
     {
         printf("eq:");
-        scanf("%s", &user_input);
-        if (strcmp(user_input, QUIT_COMMAND) == 0 || strcmp(user_input, Q_COMMAND) == 0)
+        int result_of_scanf = scanf("%9s", user_input);
+
+        assertStrict (SIZE_OF_BUFFER - 1 == 9);
+
+        ClearBufferMessage clear_buffer_message = clearBuffer();
+
+        bool expression_quit = ( (clear_buffer_message == ClearBufferMessage_ONLY_SPACES)
+                                  && (!strcmp(user_input, QUIT_COMMAND)
+                                  || !strcmp(user_input, Q_COMMAND))
+                               )
+                               ||  result_of_scanf == EOF;
+
+        if (expression_quit)
         {
+            clearScreen();
             break;
         }
-        else if (strcmp(user_input, SOLVE_COMMAND) == 0
-              || strcmp(user_input, S_COMMAND)     == 0)
+        else if (  clear_buffer_message == ClearBufferMessage_ONLY_SPACES
+               && (!strcmp(user_input, SOLVE_COMMAND) ||  !strcmp(user_input, S_COMMAND)))
         {
             Coefficients user_coefficients = {0, 0, 0};
 
@@ -37,6 +50,7 @@ State runUserInterface()
 
             if (exit_code_input == State_INPUT_FAILED)
             {
+                clearScreen();
                 continue;
             }
 
@@ -48,6 +62,9 @@ State runUserInterface()
                                                           &second_root);
 
             printRoots(number_of_roots, first_root, second_root);
+        } else if (!strcmp(user_input, "clear") && clear_buffer_message == ClearBufferMessage_ONLY_SPACES)
+        {
+            clearScreen();
         }
         else
         {

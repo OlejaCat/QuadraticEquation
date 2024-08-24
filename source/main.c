@@ -1,17 +1,18 @@
 #include <stdio.h>
 #include <string.h>
-#include <unistd.h>
 
-#include "../include/helpful_functions.h"
-#include "../include/constants.h"
-#include "../include/unit_test.h"
-#include "../include/user_interaction.h"
-#include "../include/string_color.h"
-#include "../include/user_interface.h"
+#include "helpful_functions.h"
+#include "constants.h"
+#include "unit_test.h"
+#include "user_interaction.h"
+#include "string_color.h"
+#include "user_interface.h"
+#include "config.h"
 
 
-int main(int argc, char** argv)
+int main(const int argc, const char** argv)
 {
+    // if no flags
     if (argc <= 1)
     {
         printf("For help type %s %s\n", argv[0], HELP_FLAG);
@@ -24,8 +25,6 @@ int main(int argc, char** argv)
     }
     else if (!strcmp(argv[1], TEST_FLAG))
     {
-        printf(BOLD_CYAN "Запускаем...\n");
-        sleep(1);
         runTests();
     }
     else if (!strcmp(argv[1], VERSION_FLAG))
@@ -34,8 +33,6 @@ int main(int argc, char** argv)
     }
     else if (!strcmp(argv[1], USER_FLAG))
     {
-        printf(BOLD_CYAN "Запускаем...\n");
-        sleep(1); // hehe
         runUserInterface();
     }
     else if (!strcmp(argv[1], FAST_SOLVE_FLAG) && argc == 5)

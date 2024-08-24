@@ -1,4 +1,4 @@
-#include "../include/helpful_functions.h"
+#include "helpful_functions.h"
 
 #include <math.h>
 #include <stdio.h>
@@ -6,52 +6,54 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <ctype.h>
 
-#include "../include/constants.h"
-#include "../include/string_color.h"
+#include "constants.h"
+#include "string_color.h"
 
 
-//----------------------------------------------------------
-//! Dublicates an assert functionality
-//!
-//! @param [in] expression_string  expression that is given
-//! @param [in] expression         value of given expression
-//! @param [in] file_name          file name where assert is
-//! @param [in] line               line where is assert
-//-----------------------------------------------------------
-void _assertStrict(const char* expression_string,
-                   bool        expression,
-                   const char* file_name,
-                   const char* function_name,
-                   int         line)
+
+ClearBufferMessage clearBuffer(void)
 {
-    if (!expression)
+    int current_char = 0;
+    bool only_spaces = true;
+    while ((current_char = getchar()) != (int)'\n' && current_char != EOF)
     {
-        printf(BOLD_RED "Assert failed:\t%s\nSource:\t\t%s:%d\nIn function:\t%s\n" RESET,
-               expression_string,
-               file_name,
-               line,
-               function_name);
-        abort();
+        if (!isspace((char)current_char))
+        {
+            only_spaces = false;
+        }
     }
+
+    return (only_spaces)
+                ? ClearBufferMessage_ONLY_SPACES
+                : ClearBufferMessage_NOT_ONLY_SPACES;
 }
 
 
-//---------------------------------------------------------------
-//! Dublicates an assert functionality but is just returns State
-//!
-//! @param [in] expression_string  expression that is given
-//! @param [in] expression         value of given expression
-//! @param [in] file_name          file name where assert is
-//! @param [in] line               line where is assert
-//!
-//! @return State
-//---------------------------------------------------------------
-State _assertSoft(const char* expression_string,
-                  bool        expression,
+void assertStrict_(const char* expression_string,
+                   const bool  expression,
+                   const char* file_name,
+                   const char* function_name,
+                   const int   line)
+{
+    if (expression) { return ; }
+
+    fprintf(stderr,
+            BOLD_RED "Assert failed:\t%s\nSource:\t\t%s:%d\nIn function:\t%s\n" RESET,
+            expression_string,
+            file_name,
+            line,
+            function_name);
+    abort();
+}
+
+
+State assertSoft_(const char* expression_string,
+                  const bool  expression,
                   const char* file_name,
                   const char* function_name,
-                  int         line)
+                  const int   line)
 {
     if (!expression)
     {
@@ -66,118 +68,63 @@ State _assertSoft(const char* expression_string,
     return State_WORKING;
 }
 
-//----------------
-//! Cleans screen
-//----------------
-void clearScreen()
+
+void clearScreen(void)
 {
-    printf(CLEAR_SCREEN);
+    system("clear");
 }
 
 
-//-----------------------------------------------------------------------
-//! Compares two numbers in double format
-//!
-//! @param [in] a First double number
-//! @param [in] b Second double number
-//!
-//! @return True if a is equal to b and False if a is not equal to b
-//-----------------------------------------------------------------------
-bool equatTwoDoubles (double a, double b)
+bool equatTwoDoubles (const double a, const double b)
 {
     return (fabs(a - b) < EPS);
 }
 
-//-----------------------------------------------------------------------
-//! Compares two numbers in double format
-//!
-//! @param [in] a First double number
-//! @param [in] b Second double number
-//!
-//! @return True if a is greater than b and False if a is less than b
-//-----------------------------------------------------------------------
-bool compareGreaterTwoDoubles (double a, double b)
+
+bool compareGreaterTwoDoubles (const double a, const double b)
 {
     return (a - b > EPS);
 }
 
-//-----------------------------------------------------------------------
-//! Compares two numbers in double format
-//!
-//! @param [in] a First double number
-//! @param [in] b Second double number
-//!
-//! @return True if b is greater than a and False if b is less than a
-//-----------------------------------------------------------------------
-bool compareLesserTwoDoubles (double a, double b)
+
+bool compareLessTwoDoubles (const double a, const double b)
 {
     return (b - a > EPS);
 }
 
-//----------------------------------------------
-//! Swaps two numbers in double format
-//!
-//! @param [out] a     First variable
-//! @param [out] b     Second variable
-//! @param [in]  size  Size of type of variable
-//!
-//! @note Variables need to be in one type
-//----------------------------------------------
+
 void swap(void* a, void* b, size_t size)
 {
-    //asserts
+    assertStrict (a    != NULL);
+    assertStrict (b    != NULL);
 
     char temp = 0;
-    uint8_t* ua = (uint8_t*) a;
-    uint8_t* ub = (uint8_t*) b;
-    for (uint8_t i = 0; i < size; i++)
+    uint8_t* ua = (uint8_t*)a;
+    uint8_t* ub = (uint8_t*)b;
+    for (size_t i = 0; i < size; i++)
     {
         memcpy(&temp, ua + i, sizeof(uint8_t));
                memcpy(ua + i, ub + i, sizeof(uint8_t));
                        memcpy(ub + i, &temp, sizeof(uint8_t));
     }
+
+    // TODO vectorised swap
 }
 
 
-//------------------------------------------------------
-//! Checks if number is negative or positive infinity
-//!
-//! @param [in] n double number
-//!
-//! @return True or False
-//------------------------------------------------------
-bool isInf(double n)
+bool isInf(const double n)
 {
-    return n == INFINITY || n == -INFINITY;
+    return isNan(n * 0.0);
 }
 
 
-//----------------------------
-//! Checks if number is NaN
-//!
-//! @param [in] n double number
-//!
-//! @return True or False
-//----------------------------
-bool isNan(double n)
+bool isNan(const double n)
 {
     return n != n;
 }
 
 
-//-----------------------------
-//! Checks if number is finite
-//!
-//! @param [in] n double number
-//!
-//! @return True or False
-//-----------------------------
-bool isFinite(double n)
+bool isFinite(const double n)
 {
-    if (isInf(n))
-    {
-        return 0;
-    }
-
-    return !isNan(n);
+    return !isInf(n) && !isNan(n);
 }
