@@ -47,39 +47,33 @@ NumberOfRoots quadraticEquation(const double a,
 
     const double discriminant = b * b - 4 * a * c;
 
-        if (discriminant < 0)
-        {
-            return NumberOfRoots_ZERO_ROOTS;
-        }
+    if (discriminant < 0)
+    {
+        return NumberOfRoots_ZERO_ROOTS;
+    }
 
+    double sqrt_discriminant = sqrt(discriminant);
 
-        double sqrt_discriminant = sqrt(discriminant);
+    double x1 = (-b - sqrt_discriminant) / (2 * a);
+    double x2 = (-b + sqrt_discriminant) / (2 * a);
 
-        double x1 = (-b - sqrt_discriminant) / (2 * a);
-        double x2 = (-b + sqrt_discriminant) / (2 * a);
+    x1 = equatTwoDoubles(x1, 0) ? fabs(x1) : x1;
+    x2 = equatTwoDoubles(x2, 0) ? fabs(x2) : x2;
 
-        if (equatTwoDoubles(x1, 0)) {
-            x1 = fabs(x1);
-        }
+    if (x2 < x1)
+    {
+        swap(&x1, &x2, sizeof(double));
+    }
 
-        if (equatTwoDoubles(x1, 0)) {
-            x2 = fabs(x2);
-        }
+    *second_root = x2;
+    *first_root = x1;
 
-        if (x2 < x1)
-        {
-            swap(&x1, &x2, sizeof(double));
-        }
+    if (equatTwoDoubles(discriminant, 0))
+    {
+        return NumberOfRoots_ONE_ROOT;
+    }
 
-        *second_root = x2;
-        *first_root = x1;
-
-        if (equatTwoDoubles(discriminant, 0))
-        {
-            return NumberOfRoots_ONE_ROOT;
-        }
-
-        return NumberOfRoots_TWO_ROOTS;
+    return NumberOfRoots_TWO_ROOTS;
 }
 
 

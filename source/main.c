@@ -1,11 +1,12 @@
 #include <stdio.h>
-#include <string.h>
 
 #include "constants.h"
-#include "unit_test.h"
 #include "user_interaction.h"
+#include "command_processing.h"
+#include "unit_test.h"
 #include "user_interface.h"
 #include "config.h"
+#include "helpful_functions.h"
 
 
 int main(const int argc, const char** argv)
@@ -17,29 +18,36 @@ int main(const int argc, const char** argv)
         return State_NO_INPUT;
     }
 
-    if (!strcmp(argv[1], HELP_FLAG))
-    {
-        printf(HELP_MESSAGE);
-    }
-    else if (!strcmp(argv[1], TEST_FLAG))
-    {
-        runTests();
-    }
-    else if (!strcmp(argv[1], VERSION_FLAG))
-    {
-        printf(VERSION);
-    }
-    else if (!strcmp(argv[1], USER_FLAG))
-    {
-        runUserInterface();
-    }
-    else if (!strcmp(argv[1], FAST_SOLVE_FLAG) && argc == 5)
-    {
-        fastSolve(argv);
-    }
-    else
-    {
-        printf("Unknown parameter: '%s'. Type %s %s for help.\n", argv[1], argv[0], HELP_FLAG);
+    CalledFlag flag = proccess_flags(argc, argv);
+
+    switch (flag) {
+        case CalledFlag_help:
+            printf(HELP_MESSAGE);
+            break;
+
+        case CalledFlag_test:
+            runTests();
+            break;
+
+        case CalledFlag_user:
+            runUserInterface();
+            break;
+
+        case CalledFlag_version:
+            printf(VERSION);
+            break;
+
+        case CalledFlag_fast_solve:
+            fastSolve(argv);
+            break;
+
+        case CalledFlag_no_flag:
+            emptyInputMessage(argv[1], argv[0]);
+            break;
+
+        default:
+            assertStrict(0 && "unexpected flag");
+            break;
     }
 
     return State_WORKING;

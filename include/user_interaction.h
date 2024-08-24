@@ -55,4 +55,15 @@ State getOneCoefficient(const char* name_of_coefficient,
                         const char* short_name_of_coefficient,
                         double* coefficient);
 
+
+//-----------------------------------------------------
+//! Prints that flag input is empty or no sush flag
+//!
+//! @param [in] input_parameter  flag that was inputed
+//! @param [in] solver           solver idk
+//!
+//-----------------------------------------------------
+void emptyInputMessage(const char* input_parameter,
+                       const char* solver);
+
 #endif // USER_INTERACTION

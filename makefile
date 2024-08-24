@@ -18,8 +18,8 @@ CFLAGS += $(INCLUDE)
 
 all: base
 
-base: main.o helpful_functions.o solve_quadratic.o unit_test.o user_interaction.o user_interface.o
-	@$(CC) $(LINKER_FLAGS) $(CFLAGS) main.o helpful_functions.o solve_quadratic.o unit_test.o user_interaction.o user_interface.o -o solve
+base: main.o helpful_functions.o solve_quadratic.o unit_test.o user_interaction.o user_interface.o command_processing.o
+	@$(CC) $(LINKER_FLAGS) $(CFLAGS) main.o helpful_functions.o solve_quadratic.o unit_test.o user_interaction.o user_interface.o command_processing.o -o solve
 
 main.o: source/main.c
 	@$(CC) $(CFLAGS) -c source/main.c
@@ -38,6 +38,9 @@ user_interaction.o: source/user_interaction.c
 
 user_interface.o: source/user_interface.c
 	@$(CC) $(CFLAGS) -c source/user_interface.c
+
+command_processing.o: source/command_processing.c
+	@$(CC) $(CFLAGS) -c source/command_processing.c
 
 clean:
 	@rm -rf *.o solve

@@ -8,6 +8,16 @@
 #include "constants.h"
 
 
+void emptyInputMessage(const char* input_parameter,
+                       const char* solver)
+{
+    printf("Unknown parameter: '%s'. Type %s %s for help.\n",
+           input_parameter,
+           solver,
+           HELP_FLAG);
+}
+
+
 State getOneCoefficient(const char* name_of_coefficient,
                         const char* short_name_of_coefficient,
                         double* coefficient)
