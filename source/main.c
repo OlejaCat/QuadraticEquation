@@ -1,11 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "helpful_functions.h"
 #include "constants.h"
 #include "unit_test.h"
 #include "user_interaction.h"
-#include "string_color.h"
 #include "user_interface.h"
 #include "config.h"
 

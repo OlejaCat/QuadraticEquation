@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <math.h>
 
-#include "constants.h"
 #include "helpful_functions.h"
 
 

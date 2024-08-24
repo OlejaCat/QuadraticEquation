@@ -1,8 +1,6 @@
 #ifndef SOLVE_QUADRATIC_H
 #define SOLVE_QUADRATIC_H
 
-#include "constants.h"
-
 typedef struct Coefficients
 {
     double first_coefficient;

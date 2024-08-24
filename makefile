@@ -13,7 +13,7 @@ endif
 #CFLAGS= -Wall -Wextra -std=c11
 LINKER_FLAGS = -lm
 
-INCLUDE = -I../include
+INCLUDE = -I include
 CFLAGS += $(INCLUDE)
 
 all: base
@@ -21,23 +21,23 @@ all: base
 base: main.o helpful_functions.o solve_quadratic.o unit_test.o user_interaction.o user_interface.o
 	@$(CC) $(LINKER_FLAGS) $(CFLAGS) main.o helpful_functions.o solve_quadratic.o unit_test.o user_interaction.o user_interface.o -o solve
 
-main.o: main.c
-	@$(CC) $(CFLAGS) -c main.c
+main.o: source/main.c
+	@$(CC) $(CFLAGS) -c source/main.c
 
-helpful_functions.o: helpful_functions.c
-	@$(CC) $(CFLAGS) -c helpful_functions.c
+helpful_functions.o: source/helpful_functions.c
+	@$(CC) $(CFLAGS) -c source/helpful_functions.c
 
-solve_quadratic.o: solve_quadratic.c
-	@$(CC) $(CFLAGS) -c solve_quadratic.c
+solve_quadratic.o: source/solve_quadratic.c
+	@$(CC) $(CFLAGS) -c source/solve_quadratic.c
 
-unit_test.o: unit_test.c
-	@$(CC) $(CFLAGS) -c unit_test.c
+unit_test.o: source/unit_test.c
+	@$(CC) $(CFLAGS) -c source/unit_test.c
 
-user_interaction.o: user_interaction.c
-	@$(CC) $(CFLAGS) -c user_interaction.c
+user_interaction.o: source/user_interaction.c
+	@$(CC) $(CFLAGS) -c source/user_interaction.c
 
-user_interface.o: user_interface.c
-	@$(CC) $(CFLAGS) -c user_interface.c
+user_interface.o: source/user_interface.c
+	@$(CC) $(CFLAGS) -c source/user_interface.c
 
 clean:
 	@rm -rf *.o solve

@@ -2,7 +2,6 @@
 
 #include <stdio.h>
 
-#include "constants.h"
 #include "solve_quadratic.h"
 #include "helpful_functions.h"
 #include "string_color.h"
