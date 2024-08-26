@@ -31,8 +31,7 @@ State runUserInterface(void)
                                     && (!strcmp(user_input, QUIT_COMMAND)
                                     || !strcmp(user_input, Q_COMMAND));
 
-        bool expression_quit = entered_quit_command
-                               ||  result_of_scanf == EOF;
+        bool expression_quit = entered_quit_command ||  result_of_scanf == EOF;
 
         if (expression_quit)
         {
@@ -49,13 +48,13 @@ State runUserInterface(void)
                 continue;
             }
         }
-        else if (!strcmp(user_input, "clear") && clear_buffer_message == ClearBufferMessage_ONLY_SPACES)
+        else if (!strcmp(user_input, CLEAR) && clear_buffer_message == ClearBufferMessage_ONLY_SPACES)
         {
             clearScreen();
         }
         else
         {
-            printf("Неизвестная команда\n");
+            printf(UNKNOWN_COMMAND);
         }
     }
 

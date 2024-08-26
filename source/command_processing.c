@@ -5,7 +5,8 @@
 #include "user_interaction.h"
 
 
-CalledFlag proccess_flags(const int argc, const char **argv) {
+CalledFlag proccess_flags(const int argc, const char **argv)
+{
     if (!strcmp(argv[1], HELP_FLAG))
     {
         return CalledFlag_HELP;
