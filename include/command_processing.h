@@ -3,15 +3,23 @@
 
 typedef enum CalledFlag
 {
-    CalledFlag_help          = 0,
-    CalledFlag_version       = 1,
-    CalledFlag_user          = 2,
-    CalledFlag_fast_solve    = 3,
-    CalledFlag_no_flag       = 4,
-    CalledFlag_test          = 5,
-    CalledFlag_few_arguments = 6,
+    CalledFlag_HELP          = 0,
+    CalledFlag_VERSION       = 1,
+    CalledFlag_USER          = 2,
+    CalledFlag_FAST_SOLVE    = 3,
+    CalledFlag_NO_FLAG       = 4,
+    CalledFlag_TEST          = 5,
+    CalledFlag_FEW_ARGUMENTS = 6,
 } CalledFlag;
 
+//----------------------------------------
+//! Parses terminal arguments
+//!
+//! @param [in] argc Number of arguments
+//! @param [in] argv Arguments
+//!
+//! @return enum CalledFlag
+//----------------------------------------
 CalledFlag proccess_flags(const int argc, const char **argv);
 
-#endif
+#endif // COMMAND_PROCESSING_H

@@ -5,7 +5,7 @@
 
 #define SIZE_OF_BUFFER 10
 
-// text constansts
+// Text constansts
 static const char   WRONG_INPUT_MESSAGE[]   =  BOLD_YELLOW "Некорректный ввод. Попробуйте снова.\n" RESET;
 static const char   SOMETHING_WENT_WRONG[]  =  BOLD_RED "Что-то пошло не так\n" RESET;
 static const char   FEW_ARGUMENTS[]         =  BOLD_YELLOW "Требуется ввести 3 аргумента (смотреть --help)\n" RESET;
@@ -18,7 +18,6 @@ static const char   HELP_MESSAGE[]          =
     "   --fast-solve [a] [b] [c]\tвведите в строку коэффициенты уравнения вида ax^2 + bx + c = 0\n"
 ;
 
-// States
 typedef enum State
 {
     State_WORKING          =  0,

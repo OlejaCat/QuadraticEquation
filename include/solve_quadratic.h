@@ -40,7 +40,7 @@ NumberOfRoots solveEquation(Coefficients user_input, double* first_root, double*
 //!
 //! @note   In case of infinite number of roots, returns INFINITE_ROOTS.
 //------------------------------------------------------------------------
-NumberOfRoots LinearEquation(double a, double b, double* first_root);
+NumberOfRoots linearEquation(double a, double b, double* first_root);
 
 //-----------------------------------------------------------------------
 //!Solves a square equation ax^2 + bx + c = 0 where a != 0

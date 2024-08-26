@@ -11,17 +11,17 @@ NumberOfRoots solveEquation(Coefficients user_input,
                             double* first_root,
                             double* second_root)
 {
-    assertStrict (isFinite(user_input.first_coefficient));
-    assertStrict (isFinite(user_input.second_coefficient));
-    assertStrict (isFinite(user_input.third_coefficient));
+    assertStrict(isFinite(user_input.first_coefficient));
+    assertStrict(isFinite(user_input.second_coefficient));
+    assertStrict(isFinite(user_input.third_coefficient));
 
-    assertStrict (first_root  != NULL);
-    assertStrict (second_root != NULL);
-    assertStrict (first_root  != second_root);
+    assertStrict(first_root  != NULL);
+    assertStrict(second_root != NULL);
+    assertStrict(first_root  != second_root);
 
     if (equatTwoDoubles(user_input.first_coefficient, 0))
     {
-        return LinearEquation(user_input.second_coefficient,
+        return linearEquation(user_input.second_coefficient,
                               user_input.third_coefficient,
                               first_root);
     }
@@ -41,9 +41,9 @@ NumberOfRoots quadraticEquation(const double a,
                                 double*      first_root,
                                 double*      second_root)
 {
-    assertStrict (isFinite(a));
-    assertStrict (isFinite(b));
-    assertStrict (isFinite(c));
+    assertStrict(isFinite(a));
+    assertStrict(isFinite(b));
+    assertStrict(isFinite(c));
 
     const double discriminant = b * b - 4 * a * c;
 
@@ -77,12 +77,12 @@ NumberOfRoots quadraticEquation(const double a,
 }
 
 
-NumberOfRoots LinearEquation(const double a,
+NumberOfRoots linearEquation(const double a,
                              const double b,
                              double*      first_root)
 {
-    assertStrict (isFinite(a));
-    assertStrict (isFinite(b));
+    assertStrict(isFinite(a));
+    assertStrict(isFinite(b));
 
     if (equatTwoDoubles(a, 0))
     {
@@ -94,7 +94,9 @@ NumberOfRoots LinearEquation(const double a,
         {
             return NumberOfRoots_ZERO_ROOTS;
         }
-    } else {
+    }
+    else
+    {
         *first_root = -b / a;
         return NumberOfRoots_ONE_ROOT;
     }

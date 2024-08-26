@@ -21,31 +21,31 @@ int main(const int argc, const char** argv)
     CalledFlag flag = proccess_flags(argc, argv);
 
     switch (flag) {
-        case CalledFlag_help:
+        case CalledFlag_HELP:
             printf(HELP_MESSAGE);
             break;
 
-        case CalledFlag_test:
+        case CalledFlag_TEST:
             runTests();
             break;
 
-        case CalledFlag_user:
+        case CalledFlag_USER:
             runUserInterface();
             break;
 
-        case CalledFlag_version:
+        case CalledFlag_VERSION:
             printf(VERSION);
             break;
 
-        case CalledFlag_fast_solve:
+        case CalledFlag_FAST_SOLVE:
             fastSolve(argv);
             break;
 
-        case CalledFlag_no_flag:
+        case CalledFlag_NO_FLAG:
             emptyInputMessage(argv[1], argv[0]);
             break;
 
-        case CalledFlag_few_arguments:
+        case CalledFlag_FEW_ARGUMENTS:
             printf(FEW_ARGUMENTS);
             break;
 
