@@ -20,7 +20,8 @@ int main(const int argc, const char** argv)
 
     CalledFlag flag = proccess_flags(argc, argv);
 
-    switch (flag) {
+    switch (flag)
+    {
         case CalledFlag_HELP:
             printf(HELP_MESSAGE);
             break;
