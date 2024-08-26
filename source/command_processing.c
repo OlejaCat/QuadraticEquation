@@ -25,9 +25,9 @@ CalledFlag proccess_flags(const int argc, const char **argv) {
     {
         return CalledFlag_user;
     }
-    else if (!strcmp(argv[1], FAST_SOLVE_FLAG) && argc == 5)
+    else if (!strcmp(argv[1], FAST_SOLVE_FLAG))
     {
-        return CalledFlag_fast_solve;
+        return (argc == 5) ? CalledFlag_fast_solve : CalledFlag_few_arguments;
     }
     else
     {

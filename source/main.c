@@ -45,6 +45,10 @@ int main(const int argc, const char** argv)
             emptyInputMessage(argv[1], argv[0]);
             break;
 
+        case CalledFlag_few_arguments:
+            printf(FEW_ARGUMENTS);
+            break;
+
         default:
             assertStrict(0 && "unexpected flag");
             break;

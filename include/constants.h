@@ -8,6 +8,7 @@
 // text constansts
 static const char   WRONG_INPUT_MESSAGE[]   =  BOLD_YELLOW "Некорректный ввод. Попробуйте снова.\n" RESET;
 static const char   SOMETHING_WENT_WRONG[]  =  BOLD_RED "Что-то пошло не так\n" RESET;
+static const char   FEW_ARGUMENTS[]         =  BOLD_YELLOW "Требуется ввести 3 аргумента (смотреть --help)\n" RESET;
 static const char   HELP_MESSAGE[]          =
     "Аргументы:\n"
     "   --help\t\t\tвыводит слова поддержки\n"
