@@ -1,6 +1,12 @@
 #ifndef COMMAND_PROCESSING_H
 #define COMMAND_PROCESSING_H
 
+#ifndef NDEBUG
+#define RUN_TEST_IN_PROGRAM 1
+#else
+#define RUN_TEST_IN_PROGRAM 0
+#endif
+
 typedef enum CalledFlag
 {
     CalledFlag_HELP          = 0,

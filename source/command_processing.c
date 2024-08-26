@@ -11,7 +11,7 @@ CalledFlag proccess_flags(const int argc, const char **argv)
     {
         return CalledFlag_HELP;
     }
-    else if (!strcmp(argv[1], TEST_FLAG))
+    else if (!strcmp(argv[1], TEST_FLAG) && RUN_TEST_IN_PROGRAM)
     {
         return CalledFlag_TEST;
     }

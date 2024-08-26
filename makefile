@@ -1,4 +1,3 @@
-CC=clang
 CFLAGS = -Wall -Wextra -std=c11 -Og
 ifeq ($(CC), clang)
 CFLAGS += -Wconversion -Wdangling -Wdeprecated -Wdocumentation -Wformat -Wfortify-source -Wgcc-compat -Wgnu -Wignored-attributes -Wignored-pragmas -Wimplicit -Wmost -Wshadow-all -Wthread-safety -Wuninitialized -Wunused -Wformat

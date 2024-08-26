@@ -32,8 +32,8 @@ static State printRoots(int number_of_roots, double first_root, double second_ro
 //!         and State_WORKING if everything good
 //-----------------------------------------------------------------
 static State getOneCoefficient(const char* name_of_coefficient,
-                        const char* short_name_of_coefficient,
-                        double* coefficient);
+                               const char* short_name_of_coefficient,
+                               double* coefficient);
 
 //--------------------------------------------------------------------------
 //! Gets coefficients of quadratic equation
@@ -95,6 +95,7 @@ State fastSolve(const char** argv)
 
     double first_root = 0;
     double second_root = 0;
+
     NumberOfRoots number_of_roots = solveEquation(user_coefficients,
                                                   &first_root,
                                                   &second_root);
@@ -141,8 +142,8 @@ static State printRoots(const int number_of_roots,
 
 
 static State getOneCoefficient(const char* name_of_coefficient,
-                        const char* short_name_of_coefficient,
-                        double* coefficient)
+                               const char* short_name_of_coefficient,
+                               double* coefficient)
 {
     assertStrict(name_of_coefficient       != NULL);
     assertStrict(short_name_of_coefficient != NULL);
