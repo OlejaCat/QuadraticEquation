@@ -3,13 +3,13 @@
 
 #include "string_color.h"
 
-#define SIZE_OF_BUFFER 10
+#define SIZE_OF_BUFFER 80
 
 // Text constansts
-static const char   WRONG_INPUT_MESSAGE[]   =  BOLD_YELLOW "Некорректный ввод. Попробуйте снова.\n" RESET;
-static const char   SOMETHING_WENT_WRONG[]  =  BOLD_RED "Что-то пошло не так\n" RESET;
+static const char   WRONG_INPUT_MESSAGE[]   =  BOLD_YELLOW "Некорректный ввод. Попробуйте снова.\n"           RESET;
+static const char   SOMETHING_WENT_WRONG[]  =  BOLD_RED    "Что-то пошло не так\n"                            RESET;
 static const char   FEW_ARGUMENTS[]         =  BOLD_YELLOW "Требуется ввести 3 аргумента (смотреть --help)\n" RESET;
-static const char   UNKNOWN_COMMAND[]       =  BOLD_YELLOW "Неизвестная команда\n" RESET;
+static const char   UNKNOWN_COMMAND[]       =  BOLD_YELLOW "Неизвестная команда\n"                            RESET;
 static const char   HELP_MESSAGE[]          =
     "Аргументы:\n"
     "   --help\t\t\tвыводит слова поддержки\n"
@@ -27,6 +27,7 @@ typedef enum State
     State_NO_INPUT         =  4,
     State_ASSERTION        =  5,
     State_EXIT_WITH_EOF    =  6,
+    State_READ_FILE_ERROR  =  7,
 } State;
 
 #endif // CONSTANTS_H

@@ -27,7 +27,7 @@ int main(const int argc, const char** argv)
             break;
 
         case CalledFlag_TEST:
-            runTests();
+            runTestsFromFile();
             break;
 
         case CalledFlag_USER:

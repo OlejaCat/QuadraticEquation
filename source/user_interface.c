@@ -22,8 +22,8 @@ State runUserInterface(void)
     while (true)
     {
         printf("eq:");
-        int result_of_scanf = scanf("%9s", user_input);
-        assertStrict(SIZE_OF_BUFFER - 1 == 9);
+        int result_of_scanf = scanf("%79s", user_input);
+        assertStrict(SIZE_OF_BUFFER - 1 == 79);
 
         ClearBufferMessage clear_buffer_message = clearBuffer();
 

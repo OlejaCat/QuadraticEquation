@@ -33,89 +33,80 @@ typedef struct TestData
 //-------------------------------------------------------------------------
 static Tests makeTest(TestData input_data);
 
+//--------------------------------------------------------------------------
+//! Reads tests from input data
+//!
+//! @param [in] file_path  File path where tests located (look unit_test.h)
+//!
+//! @return number of tests passed
+//--------------------------------------------------------------------------
+static int readTestsFromFile(const char* file_path);
+
 // global --------------------------------------------------------------------------------------------------------------
 
-int runTests(void)
-{
-    TestData tests[8] = {
-        // 1
-        {
-            .test_index                            =  1,
-            .input_coefficients                    =  {0, 0, 0},
-            .expected_first_root                   =  0,
-            .expected_second_root                  =  0,
-            .expected_number_of_roots              =  NumberOfRoots_INFINITE_ROOTS,
-        },
-        // 2
-        {
-            .test_index                            =  2,
-            .input_coefficients                    =  {0, 0, 1},
-            .expected_first_root                   =  0,
-            .expected_second_root                  =  0,
-            .expected_number_of_roots              =  NumberOfRoots_ZERO_ROOTS,
-        },
-        // 3
-        {
-            .test_index                            =  3,
-            .input_coefficients                    =  {0, 10, 0},
-            .expected_first_root                   =  0,
-            .expected_second_root                  =  0,
-            .expected_number_of_roots              =  NumberOfRoots_ONE_ROOT,
-        },
-        // 4
-        {
-            .test_index                            =  4,
-            .input_coefficients                    =  {0, 10, 5},
-            .expected_first_root                   =  -0.5,
-            .expected_second_root                  =  0,
-            .expected_number_of_roots              =  NumberOfRoots_ONE_ROOT,
-        },
-        // 5
-        {
-            .test_index                            =  5,
-            .input_coefficients                    =  {10, 0, 0},
-            .expected_first_root                   =  0,
-            .expected_second_root                  =  0,
-            .expected_number_of_roots              =  NumberOfRoots_ONE_ROOT,
-        },
-        // 6
-        {
-            .test_index                            =  6,
-            .input_coefficients                    =  {4, 0, -16},
-            .expected_first_root                   = -2,
-            .expected_second_root                  =  2,
-            .expected_number_of_roots              =  NumberOfRoots_TWO_ROOTS,
-        },
-        // 7
-        {
-            .test_index                            =  7,
-            .input_coefficients                    =  {5, -5, 0},
-            .expected_first_root                   =  0,
-            .expected_second_root                  =  1,
-            .expected_number_of_roots              =  NumberOfRoots_TWO_ROOTS,
-        },
-        // 8
-        {
-            .test_index                            =  8,
-            .input_coefficients                    =  {1, -3, 2},
-            .expected_first_root                   =  1,
-            .expected_second_root                  =  2,
-            .expected_number_of_roots              =  NumberOfRoots_TWO_ROOTS,
-        }
-    };
-
-    unsigned test_passed = 0;
-
-    int number_of_tests = SIZE_OF_ARRAY(tests);
-    for (int test_index = 0; test_index < number_of_tests; test_index++)
-    {
-        test_passed += makeTest(tests[test_index]);
-    }
-
-    return (int) test_passed;
+int runTestsFromFile(void) {
+    int test_passed = readTestsFromFile(UNIT_TESTS_FILE_PATH);
+    return test_passed;
 }
 
 // static --------------------------------------------------------------------------------------------------------------
+
+static int readTestsFromFile(const char* file_path) {
+    char test_line[SIZE_OF_BUFFER] = {0};
+    int test_passed = 0;
+
+    FILE* test_file = fopen(file_path, "r");
+
+    if (!test_file) {
+        fprintf(stderr, "File opening faild");
+        return test_passed;
+    }
+
+    int          test_index               = 0;
+    double       first_coefficient        = 0;
+    double       second_coefficient       = 0;
+    double       third_coefficient        = 0;
+    double       expected_first_root      = 0;
+    double       expected_second_root     = 0;
+    int          expected_number_of_roots = 0;
+
+    while ((fscanf(test_file, "%[^\n]", test_line)) != EOF) {
+        fgetc(test_file);
+
+        sscanf(test_line,
+               "%d %lf %lf %lf %lf %lf %d",
+               &test_index,
+               &first_coefficient,
+               &second_coefficient,
+               &third_coefficient,
+               &expected_first_root,
+               &expected_second_root,
+               &expected_number_of_roots);
+
+        TestData current_test = {
+            .test_index               = test_index,
+            .input_coefficients       = {
+                                            first_coefficient,
+                                            second_coefficient,
+                                            third_coefficient,
+                                        },
+            .expected_first_root      = expected_first_root,
+            .expected_second_root     = expected_second_root,
+            .expected_number_of_roots = expected_number_of_roots,
+
+        };
+
+        Tests result = makeTest(current_test);
+
+        if (result == Tests_WORKING) {
+            test_passed++;
+        }
+    }
+
+    fclose(test_file);
+
+    return test_passed;
+}
 
 static Tests makeTest(const TestData input_data)
 {
