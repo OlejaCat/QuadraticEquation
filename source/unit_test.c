@@ -44,20 +44,23 @@ static int readTestsFromFile(const char* file_path);
 
 // global --------------------------------------------------------------------------------------------------------------
 
-int runTestsFromFile(void) {
+int runTestsFromFile(void) 
+{
     int test_passed = readTestsFromFile(UNIT_TESTS_FILE_PATH);
     return test_passed;
 }
 
 // static --------------------------------------------------------------------------------------------------------------
 
-static int readTestsFromFile(const char* file_path) {
+static int readTestsFromFile(const char* file_path) 
+{
     char test_line[SIZE_OF_BUFFER] = {0};
     int test_passed = 0;
 
     FILE* test_file = fopen(file_path, "r");
 
-    if (!test_file) {
+    if (!test_file) 
+    {
         fprintf(stderr, "File opening faild");
         return test_passed;
     }
@@ -70,7 +73,8 @@ static int readTestsFromFile(const char* file_path) {
     double       expected_second_root     = 0;
     int          expected_number_of_roots = 0;
 
-    while ((fscanf(test_file, "%[^\n]", test_line)) != EOF) {
+    while ((fscanf(test_file, "%[^\n]", test_line)) != EOF) 
+    {
         fgetc(test_file);
 
         sscanf(test_line,
@@ -98,7 +102,8 @@ static int readTestsFromFile(const char* file_path) {
 
         Tests result = makeTest(current_test);
 
-        if (result == Tests_WORKING) {
+        if (result == Tests_WORKING) 
+        {
             test_passed++;
         }
     }
