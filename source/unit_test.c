@@ -8,6 +8,8 @@
 #include "solve_quadratic.h"
 #include "logger.h"
 
+#define SIZE_OF_BUFFER 80
+
 typedef enum Tests
 {
     Tests_WORKING   = 1,

@@ -3,9 +3,10 @@
 #include <stdio.h>
 #include <assert.h>
 
+#include "logger.h"
+#include "constants.h"
 #include "solve_quadratic.h"
 #include "helpful_functions.h"
-#include "constants.h"
 
 
 // static --------------------------------------------------------------------------------------------------------------
@@ -46,6 +47,14 @@ static State getCoefficientsSlow(Coefficients* user_input);
 
 
 // global --------------------------------------------------------------------------------------------------------------
+
+
+void printHelpMessage(void)
+{
+    printf(HELP_MESSAGE);
+
+    writeLog(LogLevel_INFO, "Printed help");
+}
 
 
 void emptyInputMessage(const char* input_parameter,

@@ -10,6 +10,11 @@ static const char   HELP_FLAG[]        =  "--help";
 static const char   VERSION_FLAG[]     =  "--version";
 static const char   FAST_SOLVE_FLAG[]  =  "--fast-solve";
 
+//--------------------------
+//! Prints help message
+//--------------------------
+void printHelpMessage(void);
+
 //----------------------------------------------
 //! Get coefficeints of equation and print roots
 //-----------------------------------------------

@@ -12,7 +12,7 @@ endif
 
 LINKER_FLAGS = -lm
 
-INCLUDE = -I include
+INCLUDE = -I MyMiniLib/include -I include
 CFLAGS += $(INCLUDE)
 
 all: base
@@ -23,8 +23,8 @@ base: main.o helpful_functions.o solve_quadratic.o unit_test.o user_interaction.
 main.o: source/main.c
 	@$(CC) $(CFLAGS) -c source/main.c
 
-helpful_functions.o: source/helpful_functions.c
-	@$(CC) $(CFLAGS) -c source/helpful_functions.c
+helpful_functions.o: MyMiniLib/source/helpful_functions.c
+	@$(CC) $(CFLAGS) -c MyMiniLib/source/helpful_functions.c
 
 solve_quadratic.o: source/solve_quadratic.c
 	@$(CC) $(CFLAGS) -c source/solve_quadratic.c
@@ -41,8 +41,8 @@ user_interface.o: source/user_interface.c
 command_processing.o: source/command_processing.c
 	@$(CC) $(CFLAGS) -c source/command_processing.c
 
-logger.o: source/logger.c
-	@$(CC) $(CFLAGS) -c source/logger.c
+logger.o: MyMiniLib/source/logger.c
+	@$(CC) $(CFLAGS) -c MyMiniLib/source/logger.c
 
 clean:
 	@rm -rf *.o solve
