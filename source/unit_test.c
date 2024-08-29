@@ -7,8 +7,7 @@
 #include "string_color.h"
 #include "solve_quadratic.h"
 #include "logger.h"
-
-#define SIZE_OF_BUFFER 80
+#include "constants.h"
 
 typedef enum Tests
 {

@@ -8,6 +8,7 @@
 #include "string_color.h"
 #include "helpful_functions.h"
 #include "logger.h"
+#include "constants.h"
 
 
 State runUserInterface(void)
