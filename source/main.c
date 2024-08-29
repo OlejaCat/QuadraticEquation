@@ -7,6 +7,7 @@
 #include "user_interface.h"
 #include "config.h"
 #include "helpful_functions.h"
+#include "logger.h"
 
 
 int main(const int argc, const char** argv)
@@ -18,12 +19,15 @@ int main(const int argc, const char** argv)
         return State_NO_INPUT;
     }
 
+    openLogFile(PATH_LOG_FILE);
+    writeLog(LogLevel_DEBUG, "Program started\n");
+
     CalledFlag flag = proccess_flags(argc, argv);
 
     switch (flag)
     {
         case CalledFlag_HELP:
-            printf(HELP_MESSAGE);
+            printHelpMessage();
             break;
 
         case CalledFlag_TEST:

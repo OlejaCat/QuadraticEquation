@@ -3,12 +3,12 @@
 
 #include "constants.h"
 
+static const char   CLEAR[]            =  "clear";
 static const char   TEST_FLAG[]        =  "--test";
-static const char   VERSION_FLAG[]     =  "--version";
 static const char   USER_FLAG[]        =  "--user";
 static const char   HELP_FLAG[]        =  "--help";
+static const char   VERSION_FLAG[]     =  "--version";
 static const char   FAST_SOLVE_FLAG[]  =  "--fast-solve";
-static const char   CLEAR[]            =  "clear";
 
 //----------------------------------------------
 //! Get coefficeints of equation and print roots

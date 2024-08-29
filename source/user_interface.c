@@ -7,10 +7,13 @@
 #include "user_interaction.h"
 #include "string_color.h"
 #include "helpful_functions.h"
+#include "logger.h"
 
 
 State runUserInterface(void)
 {
+    writeLog(LogLevel_DEBUG, "Started user interface\n");
+
     clearScreen();
 
     printf(BOLD_GREEN "Чтобы выйти из программы введите `%s` или `%s`"
@@ -36,6 +39,8 @@ State runUserInterface(void)
         if (expression_quit)
         {
             clearScreen();
+
+            writeLog(LogLevel_DEBUG, "Quited user interface\n");
             break;
         }
         else if (clear_buffer_message == ClearBufferMessage_ONLY_SPACES
@@ -45,8 +50,11 @@ State runUserInterface(void)
 
             if (exit_code_input == State_INPUT_FAILED)
             {
+                writeLog(LogLevel_WARNING, "Uncorrect input\n");
                 continue;
             }
+
+            writeLog(LogLevel_INFO, "Scanned coefficients");
         }
         else if (!strcmp(user_input, CLEAR) && clear_buffer_message == ClearBufferMessage_ONLY_SPACES)
         {
@@ -55,6 +63,8 @@ State runUserInterface(void)
         else
         {
             printf(UNKNOWN_COMMAND);
+
+            writeLog(LogLevel_WARNING, "Unknown command\n");
         }
     }
 

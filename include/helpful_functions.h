@@ -33,6 +33,11 @@ typedef enum ClearBufferMessage
     ClearBufferMessage_ONLY_SPACES     = 1,
 } ClearBufferMessage;
 
+//--------------------------
+//! Prints help message
+//--------------------------
+void printHelpMessage(void);
+
 //------------------------------------------------------
 //! Checks if number is negative or positive infinity
 //!

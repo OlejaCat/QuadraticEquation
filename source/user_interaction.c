@@ -44,7 +44,9 @@ static State getOneCoefficient(const char* name_of_coefficient,
 //--------------------------------------------------------------------------
 static State getCoefficientsSlow(Coefficients* user_input);
 
+
 // global --------------------------------------------------------------------------------------------------------------
+
 
 void emptyInputMessage(const char* input_parameter,
                        const char* solver)
@@ -107,6 +109,7 @@ State fastSolve(const char** argv)
 
 
 // static --------------------------------------------------------------------------------------------------------------
+
 
 static State printRoots(const int number_of_roots,
                  const double first_root,

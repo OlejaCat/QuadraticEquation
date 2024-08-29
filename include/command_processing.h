@@ -9,13 +9,13 @@
 
 typedef enum CalledFlag
 {
-    CalledFlag_HELP          = 0,
-    CalledFlag_VERSION       = 1,
-    CalledFlag_USER          = 2,
-    CalledFlag_FAST_SOLVE    = 3,
-    CalledFlag_NO_FLAG       = 4,
-    CalledFlag_TEST          = 5,
-    CalledFlag_FEW_ARGUMENTS = 6,
+    CalledFlag_HELP           =  0,
+    CalledFlag_VERSION        =  1,
+    CalledFlag_USER           =  2,
+    CalledFlag_FAST_SOLVE     =  3,
+    CalledFlag_NO_FLAG        =  4,
+    CalledFlag_TEST           =  5,
+    CalledFlag_FEW_ARGUMENTS  =  6,
 } CalledFlag;
 
 //----------------------------------------

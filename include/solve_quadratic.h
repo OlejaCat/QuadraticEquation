@@ -27,7 +27,9 @@ typedef enum NumberOfRoots
 //!
 //! @note  uses quadratic and linear equations to solve
 //------------------------------------------------------------------------
-NumberOfRoots solveEquation(Coefficients user_input, double* first_root, double* second_root);
+NumberOfRoots solveEquation(Coefficients user_input,
+                            double* first_root,
+                            double* second_root);
 
 //-----------------------------------------------------------------------
 //!Solves a square equation ax + b = 0
@@ -40,7 +42,9 @@ NumberOfRoots solveEquation(Coefficients user_input, double* first_root, double*
 //!
 //! @note   In case of infinite number of roots, returns INFINITE_ROOTS.
 //------------------------------------------------------------------------
-NumberOfRoots linearEquation(double a, double b, double* first_root);
+NumberOfRoots linearEquation(double  a,
+                             double  b,
+                             double* first_root);
 
 //-----------------------------------------------------------------------
 //!Solves a square equation ax^2 + bx + c = 0 where a != 0
@@ -53,6 +57,10 @@ NumberOfRoots linearEquation(double a, double b, double* first_root);
 //!
 //! @return Number of roots
 //-----------------------------------------------------------------------
-NumberOfRoots quadraticEquation(double a, double b, double c, double* first_root, double* second_root);
+NumberOfRoots quadraticEquation(double  a,
+                                double  b,
+                                double  c,
+                                double* first_root,
+                                double* second_root);
 
 #endif // SOLVE_QUDRATIC_H

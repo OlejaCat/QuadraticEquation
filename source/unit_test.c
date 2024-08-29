@@ -6,6 +6,7 @@
 #include "helpful_functions.h"
 #include "string_color.h"
 #include "solve_quadratic.h"
+#include "logger.h"
 
 typedef enum Tests
 {
@@ -42,38 +43,42 @@ static Tests makeTest(TestData input_data);
 //--------------------------------------------------------------------------
 static int readTestsFromFile(const char* file_path);
 
+
 // global --------------------------------------------------------------------------------------------------------------
 
-int runTestsFromFile(void) 
+int runTestsFromFile(void)
 {
     int test_passed = readTestsFromFile(UNIT_TESTS_FILE_PATH);
+
+    writeLog(LogLevel_INFO, "Tests started, passed: %d\n", test_passed);
     return test_passed;
 }
 
+
 // static --------------------------------------------------------------------------------------------------------------
 
-static int readTestsFromFile(const char* file_path) 
+static int readTestsFromFile(const char* file_path)
 {
     char test_line[SIZE_OF_BUFFER] = {0};
     int test_passed = 0;
 
     FILE* test_file = fopen(file_path, "r");
 
-    if (!test_file) 
+    if (!test_file)
     {
         fprintf(stderr, "File opening faild");
         return test_passed;
     }
 
-    int          test_index               = 0;
-    double       first_coefficient        = 0;
-    double       second_coefficient       = 0;
-    double       third_coefficient        = 0;
-    double       expected_first_root      = 0;
-    double       expected_second_root     = 0;
-    int          expected_number_of_roots = 0;
+    int    test_index               = 0;
+    double first_coefficient        = 0;
+    double second_coefficient       = 0;
+    double third_coefficient        = 0;
+    double expected_first_root      = 0;
+    double expected_second_root     = 0;
+    int    expected_number_of_roots = 0;
 
-    while ((fscanf(test_file, "%[^\n]", test_line)) != EOF) 
+    while ((fscanf(test_file, "%[^\n]", test_line)) != EOF)
     {
         fgetc(test_file);
 
@@ -102,7 +107,7 @@ static int readTestsFromFile(const char* file_path)
 
         Tests result = makeTest(current_test);
 
-        if (result == Tests_WORKING) 
+        if (result == Tests_WORKING)
         {
             test_passed++;
         }

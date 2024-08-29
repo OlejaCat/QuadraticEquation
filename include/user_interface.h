@@ -3,10 +3,10 @@
 
 #include "constants.h"
 
-static const char QUIT_COMMAND[]  = "quit";
-static const char SOLVE_COMMAND[] = "solve";
 static const char Q_COMMAND[]     = "q";
 static const char S_COMMAND[]     = "s";
+static const char QUIT_COMMAND[]  = "quit";
+static const char SOLVE_COMMAND[] = "solve";
 
 //---------------------------
 //! Runs user interface

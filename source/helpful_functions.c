@@ -10,6 +10,15 @@
 
 #include "constants.h"
 #include "string_color.h"
+#include "logger.h"
+
+
+void printHelpMessage(void)
+{
+    printf(HELP_MESSAGE);
+
+    writeLog(LogLevel_INFO, "Printed help");
+}
 
 
 ClearBufferMessage clearBuffer(void)
